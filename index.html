@@ -17,7 +17,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
       :root {
         --brand-indigo: #4f46e5;
@@ -30,24 +30,24 @@
       }
 
       body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'Inter', sans-serif;
         background-color: #fcfdfe;
         color: var(--brand-slate);
         overflow: hidden;
-        /* Refined Fluid Typography - Optimized for TV/Large Screens */
-        font-size: clamp(16px, 0.5vw + 14px, 22px);
-        line-height: 1.6;
+        /* Refined Fluid Typography - More compact as requested */
+        font-size: clamp(14px, 0.4vw + 12px, 18px);
+        line-height: 1.5;
         letter-spacing: -0.01em;
       }
 
       /* TV Optimization Class */
       .tv-mode {
-        font-size: clamp(18px, 0.6vw + 16px, 26px);
+        font-size: clamp(16px, 0.5vw + 14px, 22px);
         --brand-slate: #000000; /* Pure black for maximum contrast */
       }
 
       .tv-mode .font-display {
-        letter-spacing: -0.04em;
+        letter-spacing: -0.03em;
       }
 
       .tv-mode .glass-border::before {
@@ -56,12 +56,11 @@
       }
 
       /* TV specific component tweaks */
-      .tv-mode .rounded-2xl { border-radius: 2rem; }
-      .tv-mode .rounded-3xl { border-radius: 3rem; }
-      .tv-mode .p-5 { padding: 2rem; }
-      .tv-mode .p-8 { padding: 3rem; }
-      .tv-mode .gap-6 { gap: 2.5rem; }
-      .tv-mode .shadow-sm { shadow: 0 10px 30px -10px rgba(0,0,0,0.1); }
+      .tv-mode .rounded-2xl { border-radius: 1.5rem; }
+      .tv-mode .rounded-3xl { border-radius: 2.5rem; }
+      .tv-mode .p-5 { padding: 1.5rem; }
+      .tv-mode .p-8 { padding: 2.5rem; }
+      .tv-mode .gap-6 { gap: 2rem; }
       
       /* Increase contrast for icons in TV mode */
       .tv-mode svg {
@@ -69,15 +68,17 @@
       }
 
       .font-display {
-        font-family: 'Outfit', sans-serif;
-        letter-spacing: -0.03em;
-        line-height: 1.1;
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
       }
 
       .font-space {
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
         letter-spacing: -0.02em;
-        line-height: 1.2;
+        line-height: 1.1;
       }
       
       /* Bento Grid Helper */
