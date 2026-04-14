@@ -15,7 +15,8 @@ import {
   InteractiveDynamicSlide,
   EvaluatorMindsetSlide,
   ObservationTipsSlide,
-  InvestmentSlide
+  InvestmentSlide,
+  CandidateGuideSlide
 } from './components/Slides';
 
 const App: React.FC = () => {
@@ -68,6 +69,8 @@ const App: React.FC = () => {
           return <ObservationTipsSlide data={data} />;
         case 'investment':
           return <InvestmentSlide data={data} />;
+        case 'candidate-guide':
+          return <CandidateGuideSlide data={data} />;
         case 'closing':
           return <ClosingSlide data={data} onJumpToSlide={jumpToSlide} />;
         default:

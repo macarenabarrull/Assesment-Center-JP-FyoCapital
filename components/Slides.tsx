@@ -4,7 +4,7 @@ import {
   Users, Calendar, GraduationCap, FileText, Flag, Heart, 
   BrainCircuit, Zap, ClipboardCheck, PencilRuler, Search, FileSignature, 
   Rocket, BarChart3, Compass, Target, Layers, Sparkles, DollarSign, Briefcase,
-  RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Check
+  RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Check, Printer
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -1283,6 +1283,222 @@ export const InvestmentSlide: React.FC<SlideProps> = ({ data }) => {
             </GlassCard>
           </motion.div>
         </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// 13. Candidate Guide Slide
+export const CandidateGuideSlide: React.FC<SlideProps> = ({ data }) => {
+  const { phase1, investment, phase2 } = data.content;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const PageHeader = ({ page, total, subtitle, tag }: { page: number, total: number, subtitle: string, tag: string }) => (
+    <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4 mb-6">
+      <div className="flex items-center gap-4">
+        <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg font-black text-xl tracking-tighter">fyo</div>
+        <div>
+          <h2 className="text-2xl font-black text-slate-900 tracking-tighter leading-none">GUÍA DEL CANDIDATO</h2>
+          <p className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em] mt-1">{subtitle}</p>
+        </div>
+      </div>
+      <div className="flex flex-col items-end">
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">PÁGINA {page} DE {total}</span>
+        <div className={`mt-1 px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${tag === 'URGENTE' ? 'bg-red-50 text-red-600 border-red-100' : 'bg-slate-50 text-slate-400 border-slate-100'}`}>
+          {tag}
+        </div>
+      </div>
+    </div>
+  );
+
+  const NoteLines = ({ count = 5, label }: { count?: number, label?: string }) => (
+    <div className="mt-6">
+      {label && (
+        <div className="flex items-center gap-2 mb-4">
+          <FileSignature size={14} className="text-slate-400" />
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{label}</span>
+        </div>
+      )}
+      <div className="space-y-4">
+        {[...Array(count)].map((_, i) => (
+          <div key={i} className="h-px w-full bg-slate-100" />
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <motion.div 
+      className="flex flex-col h-full py-4 max-w-5xl mx-auto px-6 overflow-hidden" 
+      initial="hidden" 
+      animate="show" 
+      variants={containerVariants}
+    >
+      {/* Page Navigation */}
+      <div className="flex justify-center gap-4 mb-4 no-print">
+        <button 
+          onClick={() => setCurrentPage(1)}
+          className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currentPage === 1 ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+        >
+          Página 1: Construcción
+        </button>
+        <button 
+          onClick={() => setCurrentPage(2)}
+          className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currentPage === 2 ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+        >
+          Página 2: Crisis
+        </button>
+        <button 
+          onClick={() => window.print()}
+          className="ml-auto flex items-center gap-2 px-4 py-1.5 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all"
+        >
+          <Printer size={14} /> Imprimir
+        </button>
+      </div>
+
+      <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar bg-white p-8 md:p-12 shadow-2xl rounded-[2rem] border border-slate-100 relative">
+        <AnimatePresence mode="wait">
+          {currentPage === 1 ? (
+            <motion.div 
+              key="page1"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className="space-y-8"
+            >
+              <PageHeader page={1} total={2} subtitle="ASSESSMENT CENTER | DINÁMICA 2: FASE 1" tag="CONFIDENCIAL" />
+              
+              <div className="border-b border-slate-200 pb-2 mb-8">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">NOMBRE DEL CANDIDATO:</span>
+                <div className="h-8 w-full border-b border-slate-100 mt-1" />
+              </div>
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 bg-indigo-600 text-white rounded-xl shadow-lg">
+                  <Layers size={20} />
+                </div>
+                <h3 className="text-xl font-black text-slate-900 tracking-tighter uppercase">{phase1.title}</h3>
+              </div>
+
+              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <Compass size={16} className="text-indigo-600" />
+                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">CONSIGNA GENERAL</h4>
+                </div>
+                <p className="text-slate-700 text-xs md:text-sm leading-relaxed font-bold italic">
+                  "{phase1.consigna}"
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {phase1.roles.map((role: any, i: number) => (
+                  <div key={i} className="p-5 border border-slate-100 rounded-2xl bg-white shadow-sm">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-2 h-2 rounded-full bg-indigo-600" />
+                      <h5 className="text-[11px] font-black text-slate-900 uppercase tracking-tight">{role.title}</h5>
+                    </div>
+                    <p className="text-[10px] text-slate-500 leading-tight mb-4">{role.desc}</p>
+                    <div className="border-t border-slate-50 pt-3">
+                      <span className="text-[8px] font-black text-slate-300 uppercase tracking-widest block mb-1">Nombre y Apellido:</span>
+                      <div className="h-6 border-b border-slate-100" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-white border-2 border-indigo-50 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Sparkles size={16} className="text-indigo-600" />
+                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">RECOMENDACIONES PARA EL EQUIPO</h4>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {phase1.tips.map((tip: string, i: number) => (
+                    <div key={i} className="flex gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
+                      <p className="text-[10px] font-bold text-slate-600 leading-tight">{tip}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Investment Section on Page 1 */}
+              <div className="bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100">
+                <div className="flex items-center gap-3 mb-6">
+                  <DollarSign size={18} className="text-indigo-600" />
+                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">FICHA DE INVERSIÓN (PRESUPUESTO: ${investment.budget.toLocaleString()})</h4>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {investment.topics.map((topic: any, i: number) => (
+                    <div key={i} className="space-y-3">
+                      <h5 className="text-[9px] font-black text-slate-900 uppercase tracking-widest border-b border-indigo-100 pb-1">{topic.title}</h5>
+                      <div className="space-y-2">
+                        {topic.options.map((opt: any, j: number) => (
+                          <div key={j} className="flex items-center gap-3 group cursor-pointer">
+                            <div className="w-4 h-4 rounded border-2 border-indigo-200 flex items-center justify-center bg-white group-hover:border-indigo-400 transition-colors">
+                              <Check size={10} className="text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-[10px] font-black text-slate-700 leading-none">{opt.name}</span>
+                              <span className="text-[8px] text-slate-400 font-bold">{opt.desc}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <NoteLines label="ESPACIO PARA ANOTACIONES PERSONALES" count={8} />
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="page2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-8"
+            >
+              <PageHeader page={2} total={2} subtitle="ASSESSMENT CENTER | DINÁMICA 2: FASE 2" tag="URGENTE" />
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 bg-red-600 text-white rounded-xl shadow-lg">
+                  <AlertCircle size={20} />
+                </div>
+                <h3 className="text-xl font-black text-slate-900 tracking-tighter uppercase">{phase2.title}</h3>
+              </div>
+
+              <div className="bg-red-50 rounded-2xl p-6 border border-red-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <Zap size={16} className="text-red-600" />
+                  <h4 className="text-[10px] font-black text-red-600 uppercase tracking-[0.3em]">CONTEXTO CRÍTICO</h4>
+                </div>
+                <p className="text-slate-700 text-xs md:text-sm leading-relaxed font-bold">
+                  {phase2.context}
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {phase2.cases.map((c: any) => (
+                  <div key={c.id} className="flex gap-6 p-6 border border-slate-100 rounded-2xl bg-white shadow-sm hover:border-red-100 transition-colors group">
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="text-xs font-black text-red-600">{c.id}</span>
+                      <div className="p-2 bg-red-50 text-red-600 rounded-lg group-hover:scale-110 transition-transform">
+                        <Zap size={16} />
+                      </div>
+                    </div>
+                    <div>
+                      <h5 className="text-xs font-black text-slate-900 uppercase tracking-tight mb-1">{c.title}</h5>
+                      <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed italic">"{c.desc}"</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <NoteLines label="PLAN DE ACCIÓN Y RESOLUCIONES" count={15} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
