@@ -4,9 +4,13 @@ import {
   Users, Calendar, GraduationCap, FileText, Flag, Heart, 
   BrainCircuit, Zap, ClipboardCheck, PencilRuler, Search, FileSignature, 
   Rocket, BarChart3, Compass, Target, Layers, Sparkles, DollarSign, Briefcase,
-  RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Check, Printer
+  RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Check,
+  Download, FileDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
+import { SLIDES } from '../constants';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface SlideProps {
   data: SlideData;
@@ -1289,216 +1293,313 @@ export const InvestmentSlide: React.FC<SlideProps> = ({ data }) => {
 };
 
 // 13. Candidate Guide Slide
-export const CandidateGuideSlide: React.FC<SlideProps> = ({ data }) => {
-  const { phase1, investment, phase2 } = data.content;
-  const [currentPage, setCurrentPage] = useState(1);
+export const CandidateGuideSlide: React.FC<SlideProps> = () => {
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const PageHeader = ({ page, total, subtitle, tag }: { page: number, total: number, subtitle: string, tag: string }) => (
-    <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4 mb-6">
-      <div className="flex items-center gap-4">
-        <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg font-black text-xl tracking-tighter">fyo</div>
-        <div>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tighter leading-none">GUÍA DEL CANDIDATO</h2>
-          <p className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em] mt-1">{subtitle}</p>
-        </div>
-      </div>
-      <div className="flex flex-col items-end">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">PÁGINA {page} DE {total}</span>
-        <div className={`mt-1 px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${tag === 'URGENTE' ? 'bg-red-50 text-red-600 border-red-100' : 'bg-slate-50 text-slate-400 border-slate-100'}`}>
-          {tag}
-        </div>
-      </div>
-    </div>
-  );
+  // Get data from other slides
+  const phase1Data = SLIDES.find(s => s.id === 'dinamica-2')?.content;
+  const investmentData = SLIDES.find(s => s.id === 'investment-sheet')?.content;
+  const phase2Data = SLIDES.find(s => s.id === 'dinamica-2-crisis')?.content;
 
-  const NoteLines = ({ count = 5, label }: { count?: number, label?: string }) => (
-    <div className="mt-6">
-      {label && (
-        <div className="flex items-center gap-2 mb-4">
-          <FileSignature size={14} className="text-slate-400" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{label}</span>
-        </div>
-      )}
-      <div className="space-y-4">
-        {[...Array(count)].map((_, i) => (
-          <div key={i} className="h-px w-full bg-slate-100" />
-        ))}
-      </div>
-    </div>
-  );
+  const downloadPDF = async () => {
+    setIsGenerating(true);
+    const element = document.getElementById('pdf-content');
+    if (!element) return;
+
+    try {
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pages = element.querySelectorAll('.pdf-page');
+      
+      for (let i = 0; i < pages.length; i++) {
+        const page = pages[i] as HTMLElement;
+        const canvas = await html2canvas(page, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff'
+        });
+        
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 210;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      }
+      
+      pdf.save('Guia_del_Candidato_fyo.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   return (
     <motion.div 
-      className="flex flex-col h-full py-4 max-w-5xl mx-auto px-6 overflow-hidden" 
+      className="flex flex-col items-center justify-center h-full py-8 max-w-6xl mx-auto px-6" 
       initial="hidden" 
       animate="show" 
       variants={containerVariants}
     >
-      {/* Page Navigation */}
-      <div className="flex justify-center gap-4 mb-4 no-print">
-        <button 
-          onClick={() => setCurrentPage(1)}
-          className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currentPage === 1 ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
-        >
-          Página 1: Construcción
-        </button>
-        <button 
-          onClick={() => setCurrentPage(2)}
-          className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currentPage === 2 ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
-        >
-          Página 2: Crisis
-        </button>
-        <button 
-          onClick={() => window.print()}
-          className="ml-auto flex items-center gap-2 px-4 py-1.5 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all"
-        >
-          <Printer size={14} /> Imprimir
-        </button>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+        <div className="lg:col-span-5 space-y-8">
+          <motion.div variants={itemVariants}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-full text-indigo-600 mb-6">
+              <FileDown size={18} />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em]">Material de apoyo</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter leading-none mb-6 uppercase font-display">
+              Guía del <span className="text-indigo-600">Candidato</span>
+            </h2>
+            <p className="text-lg text-slate-600 font-bold leading-relaxed mb-8">
+              Descarga la ficha técnica de la dinámica. Incluye la consigna, roles del equipo, ficha de inversión y el contexto de crisis para trabajar durante la jornada.
+            </p>
+            
+            <div className="space-y-4 mb-10">
+              {[
+                'Consigna general y roles del equipo',
+                'Ficha de inversión interactiva',
+                'Contexto de crisis y resolución',
+                'Espacio para anotaciones personales'
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-white">
+                    <Check size={12} strokeWidth={4} />
+                  </div>
+                  <span className="text-sm font-bold text-slate-700">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={downloadPDF}
+              disabled={isGenerating}
+              className={`w-full py-5 rounded-2xl font-black text-sm uppercase tracking-[0.3em] flex items-center justify-center gap-4 shadow-2xl transition-all ${
+                isGenerating 
+                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed' 
+                  : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-200'
+              }`}
+            >
+              {isGenerating ? (
+                <>
+                  <RotateCcw size={20} className="animate-spin" />
+                  Generando PDF...
+                </>
+              ) : (
+                <>
+                  <Download size={20} />
+                  Descargar Guía (PDF)
+                </>
+              )}
+            </motion.button>
+          </motion.div>
+        </div>
+
+        <div className="lg:col-span-7">
+          <motion.div variants={itemVariants} className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-indigo-500/20 to-cyan-500/20 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <GlassCard className="p-2 bg-white/40 border-white/60 shadow-2xl rounded-[2.5rem] overflow-hidden">
+              <div className="aspect-[3/4] bg-slate-50 rounded-[2rem] overflow-hidden border border-slate-200 flex flex-col items-center justify-center p-12 text-center group-hover:bg-white transition-colors duration-500">
+                <div className="w-24 h-24 bg-indigo-50 rounded-3xl flex items-center justify-center text-indigo-600 mb-6 shadow-sm group-hover:scale-110 transition-transform duration-700">
+                  <FileSignature size={48} />
+                </div>
+                <h4 className="text-xl font-black text-slate-900 uppercase tracking-tighter mb-2">Vista Previa</h4>
+                <p className="text-sm text-slate-500 font-bold max-w-xs">
+                  El documento se generará con el formato oficial de fyo para el Assessment Center.
+                </p>
+              </div>
+            </GlassCard>
+          </motion.div>
+        </div>
       </div>
 
-      <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar bg-white p-8 md:p-12 shadow-2xl rounded-[2rem] border border-slate-100 relative">
-        <AnimatePresence mode="wait">
-          {currentPage === 1 ? (
-            <motion.div 
-              key="page1"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              className="space-y-8"
-            >
-              <PageHeader page={1} total={2} subtitle="ASSESSMENT CENTER | DINÁMICA 2: FASE 1" tag="CONFIDENCIAL" />
-              
-              <div className="border-b border-slate-200 pb-2 mb-8">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">NOMBRE DEL CANDIDATO:</span>
-                <div className="h-8 w-full border-b border-slate-100 mt-1" />
-              </div>
-
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-indigo-600 text-white rounded-xl shadow-lg">
-                  <Layers size={20} />
+      {/* Hidden PDF Content */}
+      <div className="fixed top-[-10000px] left-[-10000px]">
+        <div id="pdf-content" className="w-[210mm] bg-white text-slate-900 font-sans">
+          {/* Page 1: Phase 1 & Investment */}
+          <div className="pdf-page w-[210mm] min-h-[297mm] p-[15mm] flex flex-col relative overflow-hidden bg-white">
+            {/* Header */}
+            <div className="flex justify-between items-start border-b-4 border-slate-900 pb-4 mb-8">
+              <div className="flex items-center gap-4">
+                <div className="bg-slate-900 text-white px-4 py-2 font-black text-2xl rounded-lg">fyo</div>
+                <div>
+                  <h1 className="text-2xl font-black uppercase tracking-tighter leading-none">Guía del Candidato</h1>
+                  <p className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em] mt-1">Assessment Center | Dinámica 2: Fase 1</p>
                 </div>
-                <h3 className="text-xl font-black text-slate-900 tracking-tighter uppercase">{phase1.title}</h3>
               </div>
-
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <Compass size={16} className="text-indigo-600" />
-                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">CONSIGNA GENERAL</h4>
-                </div>
-                <p className="text-slate-700 text-xs md:text-sm leading-relaxed font-bold italic">
-                  "{phase1.consigna}"
-                </p>
+              <div className="text-right">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Página 1 de 2</p>
+                <div className="mt-1 px-3 py-1 bg-slate-100 rounded text-[10px] font-black uppercase tracking-widest text-slate-500">Confidencial</div>
               </div>
+            </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {phase1.roles.map((role: any, i: number) => (
-                  <div key={i} className="p-5 border border-slate-100 rounded-2xl bg-white shadow-sm">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 rounded-full bg-indigo-600" />
-                      <h5 className="text-[11px] font-black text-slate-900 uppercase tracking-tight">{role.title}</h5>
-                    </div>
-                    <p className="text-[10px] text-slate-500 leading-tight mb-4">{role.desc}</p>
-                    <div className="border-t border-slate-50 pt-3">
-                      <span className="text-[8px] font-black text-slate-300 uppercase tracking-widest block mb-1">Nombre y Apellido:</span>
-                      <div className="h-6 border-b border-slate-100" />
-                    </div>
+            {/* Candidate Name */}
+            <div className="mb-10 border-b border-slate-200 pb-2">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Nombre del Candidato:</span>
+              <div className="h-8 w-full border-b-2 border-slate-100 mt-1" />
+            </div>
+
+            {/* Section Title */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white">
+                <Layers size={20} />
+              </div>
+              <h2 className="text-xl font-black uppercase tracking-tighter">Construcción y Logística</h2>
+            </div>
+
+            {/* Consigna */}
+            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 mb-8">
+              <div className="flex items-center gap-2 mb-3">
+                <Compass size={14} className="text-indigo-600" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600">Consigna General</span>
+              </div>
+              <p className="text-sm font-bold text-slate-700 leading-relaxed italic">
+                "{phase1Data?.consigna}"
+              </p>
+            </div>
+
+            {/* Roles Grid */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              {phase1Data?.roles.map((role: any) => (
+                <div key={role.title} className="border border-slate-200 rounded-2xl p-4 flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-indigo-600" />
+                    <span className="text-[10px] font-black uppercase tracking-tight text-slate-900">{role.title}</span>
                   </div>
-                ))}
-              </div>
-
-              <div className="bg-white border-2 border-indigo-50 rounded-2xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Sparkles size={16} className="text-indigo-600" />
-                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">RECOMENDACIONES PARA EL EQUIPO</h4>
+                  <p className="text-[9px] text-slate-500 leading-tight font-bold mb-2">{role.desc}</p>
+                  <div className="mt-auto border-t border-slate-100 pt-2">
+                    <span className="text-[8px] font-black uppercase tracking-widest text-slate-300">Nombre y Apellido:</span>
+                    <div className="h-6 border-b border-slate-100" />
+                  </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {phase1.tips.map((tip: string, i: number) => (
-                    <div key={i} className="flex gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
-                      <p className="text-[10px] font-bold text-slate-600 leading-tight">{tip}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
+            </div>
 
-              {/* Investment Section on Page 1 */}
-              <div className="bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100">
-                <div className="flex items-center gap-3 mb-6">
+            {/* Investment Sheet */}
+            <div className="border-2 border-indigo-100 rounded-3xl p-6 bg-indigo-50/30 mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
                   <DollarSign size={18} className="text-indigo-600" />
-                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">FICHA DE INVERSIÓN (PRESUPUESTO: ${investment.budget.toLocaleString()})</h4>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {investment.topics.map((topic: any, i: number) => (
-                    <div key={i} className="space-y-3">
-                      <h5 className="text-[9px] font-black text-slate-900 uppercase tracking-widest border-b border-indigo-100 pb-1">{topic.title}</h5>
-                      <div className="space-y-2">
-                        {topic.options.map((opt: any, j: number) => (
-                          <div key={j} className="flex items-center gap-3 group cursor-pointer">
-                            <div className="w-4 h-4 rounded border-2 border-indigo-200 flex items-center justify-center bg-white group-hover:border-indigo-400 transition-colors">
-                              <Check size={10} className="text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] font-black text-slate-700 leading-none">{opt.name}</span>
-                              <span className="text-[8px] text-slate-400 font-bold">{opt.desc}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
+                  <h3 className="text-sm font-black uppercase tracking-widest">Ficha de Inversión (Presupuesto: $200.000)</h3>
                 </div>
               </div>
-
-              <NoteLines label="ESPACIO PARA ANOTACIONES PERSONALES" count={8} />
-            </motion.div>
-          ) : (
-            <motion.div 
-              key="page2"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              className="space-y-8"
-            >
-              <PageHeader page={2} total={2} subtitle="ASSESSMENT CENTER | DINÁMICA 2: FASE 2" tag="URGENTE" />
-
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-red-600 text-white rounded-xl shadow-lg">
-                  <AlertCircle size={20} />
-                </div>
-                <h3 className="text-xl font-black text-slate-900 tracking-tighter uppercase">{phase2.title}</h3>
-              </div>
-
-              <div className="bg-red-50 rounded-2xl p-6 border border-red-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <Zap size={16} className="text-red-600" />
-                  <h4 className="text-[10px] font-black text-red-600 uppercase tracking-[0.3em]">CONTEXTO CRÍTICO</h4>
-                </div>
-                <p className="text-slate-700 text-xs md:text-sm leading-relaxed font-bold">
-                  {phase2.context}
-                </p>
-              </div>
-
               <div className="space-y-4">
-                {phase2.cases.map((c: any) => (
-                  <div key={c.id} className="flex gap-6 p-6 border border-slate-100 rounded-2xl bg-white shadow-sm hover:border-red-100 transition-colors group">
-                    <div className="flex flex-col items-center gap-2">
-                      <span className="text-xs font-black text-red-600">{c.id}</span>
-                      <div className="p-2 bg-red-50 text-red-600 rounded-lg group-hover:scale-110 transition-transform">
-                        <Zap size={16} />
-                      </div>
-                    </div>
-                    <div>
-                      <h5 className="text-xs font-black text-slate-900 uppercase tracking-tight mb-1">{c.title}</h5>
-                      <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed italic">"{c.desc}"</p>
+                {investmentData?.topics.map((topic: any) => (
+                  <div key={topic.id} className="space-y-2">
+                    <p className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{topic.title}</p>
+                    <div className="grid grid-cols-1 gap-2">
+                      {topic.options.map((opt: any) => (
+                        <div key={opt.id} className="flex items-center gap-3 bg-white border border-slate-100 rounded-xl p-2">
+                          <div className="w-4 h-4 border-2 border-indigo-600 rounded flex-shrink-0 flex items-center justify-center bg-indigo-50">
+                            <Check size={10} className="text-indigo-600" strokeWidth={4} />
+                          </div>
+                          <div className="flex flex-col flex-grow">
+                            <span className="text-[9px] font-black uppercase text-slate-900">{opt.name}</span>
+                            <span className="text-[8px] text-slate-400 font-bold leading-none">{opt.desc}</span>
+                          </div>
+                          <span className="text-[10px] font-black text-indigo-600">${opt.price.toLocaleString()}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
+            </div>
 
-              <NoteLines label="PLAN DE ACCIÓN Y RESOLUCIONES" count={15} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+            {/* Recommendations */}
+            <div className="mt-auto pt-8 border-t border-slate-100">
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles size={14} className="text-indigo-600" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-900">Recomendaciones para el equipo</span>
+              </div>
+              <div className="grid grid-cols-3 gap-6">
+                {phase1Data?.tips.map((tip: string, i: number) => (
+                  <div key={i} className="flex gap-2">
+                    <div className="w-1 h-1 rounded-full bg-indigo-600 mt-1.5 flex-shrink-0" />
+                    <p className="text-[9px] font-bold text-slate-500 leading-tight">{tip}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Page 2: Phase 2 (Crisis) */}
+          <div className="pdf-page w-[210mm] min-h-[297mm] p-[15mm] flex flex-col relative overflow-hidden bg-white">
+            {/* Header */}
+            <div className="flex justify-between items-start border-b-4 border-slate-900 pb-4 mb-8">
+              <div className="flex items-center gap-4">
+                <div className="bg-slate-900 text-white px-4 py-2 font-black text-2xl rounded-lg">fyo</div>
+                <div>
+                  <h1 className="text-2xl font-black uppercase tracking-tighter leading-none">Guía del Candidato</h1>
+                  <p className="text-[10px] font-black text-red-600 uppercase tracking-[0.2em] mt-1">Assessment Center | Dinámica 2: Fase 2</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Página 2 de 2</p>
+                <div className="mt-1 px-3 py-1 bg-red-600 rounded text-[10px] font-black uppercase tracking-widest text-white">Urgente</div>
+              </div>
+            </div>
+
+            {/* Section Title */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white">
+                <AlertCircle size={20} />
+              </div>
+              <h2 className="text-xl font-black uppercase tracking-tighter text-red-600">Gestión de Crisis</h2>
+            </div>
+
+            {/* Contexto Crítico */}
+            <div className="bg-red-50 rounded-2xl p-6 border border-red-100 mb-8">
+              <div className="flex items-center gap-2 mb-3">
+                <Zap size={14} className="text-red-600" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-red-600">Contexto Crítico</span>
+              </div>
+              <p className="text-sm font-bold text-slate-700 leading-relaxed">
+                Durante esta fase, el equipo enfrentará situaciones imprevistas que pondrán a prueba su capacidad de reacción y toma de decisiones estratégica.
+              </p>
+            </div>
+
+            {/* Crisis Cards */}
+            <div className="space-y-4 mb-10">
+              {phase2Data?.cards.map((card: any, i: number) => (
+                <div key={card.id} className="border border-slate-200 rounded-2xl p-6 flex items-start gap-6">
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-lg font-black text-red-600">{i + 1}</span>
+                    <Zap size={16} className="text-red-600 opacity-50" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black uppercase tracking-widest text-slate-900 mb-2">{card.frontText}</h4>
+                    <p className="text-[11px] text-slate-600 leading-relaxed font-bold italic">
+                      "{card.backText}"
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Action Plan Section */}
+            <div className="flex-grow flex flex-col">
+              <div className="flex items-center gap-2 mb-6">
+                <ClipboardCheck size={14} className="text-slate-400" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Plan de acción y resoluciones</span>
+              </div>
+              <div className="flex-grow space-y-6">
+                {[...Array(10)].map((_, i) => (
+                  <div key={i} className="border-b border-slate-100 h-8" />
+                ))}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="mt-10 pt-6 border-t border-slate-100 flex justify-between items-center">
+              <p className="text-[8px] font-black uppercase tracking-widest text-slate-300">fyo Assessment Center JP 25-26 | Confidencial</p>
+              <p className="text-[8px] font-black uppercase tracking-widest text-red-600 italic">Crisis Management</p>
+            </div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

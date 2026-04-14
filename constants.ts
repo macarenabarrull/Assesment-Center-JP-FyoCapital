@@ -284,66 +284,6 @@ export const SLIDES: SlideData[] = [
     }
   },
   {
-    id: 'candidate-guide',
-    type: 'candidate-guide',
-    title: '📄 GUÍA DEL CANDIDATO',
-    subtitle: 'Material de trabajo para participantes',
-    theme: 'light',
-    content: {
-      phase1: {
-        title: 'CONSTRUCCIÓN Y LOGÍSTICA',
-        consigna: '¡Bienvenidos al Directorio! Acaban de fundar su propia agencia de viajes. Tienen 30 minutos para definir la identidad de su marca (Nombre y Eslogan) y estructurar la logística del gran viaje de su temporada.',
-        roles: [
-          { title: 'DIRECTOR COMERCIAL', desc: 'Toma la decisión final si hay empate. Es la cara visible de la empresa y quien lidera la presentación.' },
-          { title: 'DIRECTOR DE MARKETING', desc: 'El guardián de la marca. Su objetivo es definir cómo la marca conecta con el público, lidera la estrategia de ventas, precios y productos.' },
-          { title: 'DIRECTOR DE OPERACIONES', desc: 'El encargado de la logística. Habla con proveedores, aerolíneas, hoteles y busca alternativas si un vuelo se cancela o un hotel cierra.' },
-          { title: 'DIRECTOR DE COMUNICACIÓN', desc: 'El responsable de hablar con los clientes. Tiene que tener el tacto para calmar a la gente enojada y venderles soluciones alternativas.' }
-        ],
-        tips: [
-          'El tiempo vuela. No se estanquen en elegir el nombre perfecto; el negocio tiene que avanzar.',
-          'Piensen en el cliente, pero protejan la rentabilidad de su agencia.',
-          'Escúchense. Un equipo desalineado pierde clientes.'
-        ]
-      },
-      investment: {
-        budget: 200000,
-        topics: [
-          {
-            title: 'Nivel de proveedores',
-            options: [
-              { name: 'Low-Cost ($40k)', desc: 'Sin reembolso.' },
-              { name: 'Flexible ($90k)', desc: 'Reembolso 50%.' },
-              { name: 'VIP ($120k)', desc: 'Reembolso total.' }
-            ]
-          },
-          {
-            title: 'Atención al cliente',
-            options: [
-              { name: 'Básico ($20k)', desc: 'WhatsApp.' },
-              { name: 'Omnicanal ($50k)', desc: 'CRM + Equipo.' }
-            ]
-          },
-          {
-            title: 'Seguros',
-            options: [
-              { name: 'Responsabilidad Civil ($30k)', desc: 'Accidentes.' },
-              { name: 'Gran Crisis ($80k)', desc: 'Repatriación.' }
-            ]
-          }
-        ]
-      },
-      phase2: {
-        title: 'GESTIÓN DE CRISIS',
-        context: 'Durante esta fase, el equipo enfrentará situaciones imprevistas que pondrán a prueba su capacidad de reacción y toma de decisiones estratégica.',
-        cases: [
-          { id: 1, title: 'FIEBRE MUNDIALISTA', desc: 'Tensión geopolítica extrema. Irán insinúa un posible atentado en las sedes del Mundial. Las aerolíneas están cancelando vuelos por precaución.' },
-          { id: 2, title: 'AVENTURA EXÓTICA', desc: 'Estalla un conflicto bélico relámpago en una región vecina que cierra el espacio aéreo. El 80% de los clientes exige reembolso.' },
-          { id: 3, title: 'LUJO EUROPEO', desc: 'Un apagón informático global masivo paraliza el sistema financiero y de radares europeos. Clientes VIP varados en Ezeiza.' }
-        ]
-      }
-    }
-  },
-  {
     id: 'observation-phase-2',
     type: 'observation-tips',
     title: '🔥 FASE 2: GESTIÓN DE CRISIS',
@@ -430,5 +370,13 @@ export const SLIDES: SlideData[] = [
       description: 'Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido.',
       contacts: []
     }
+  },
+  {
+    id: 'candidate-guide',
+    type: 'candidate-guide',
+    title: '📄 GUÍA DEL CANDIDATO',
+    subtitle: 'Material descargable para la dinámica',
+    theme: 'light',
+    content: {}
   }
 ];
