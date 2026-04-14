@@ -4,7 +4,7 @@ import {
   Users, Calendar, GraduationCap, FileText, Flag, Heart, 
   BrainCircuit, Zap, ClipboardCheck, PencilRuler, Search, FileSignature, 
   Rocket, BarChart3, Compass, Target, Layers, Sparkles, DollarSign, Briefcase,
-  RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper
+  RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -55,7 +55,7 @@ const GlowIcon: React.FC<{ icon: any, color: string, bg: string, size?: number }
     </OrganicShape>
 );
 
-const GlassCard: React.FC<{ children?: React.ReactNode, className?: string, hover?: boolean, theme?: 'light' | 'dark' | 'brand' }> = ({ children, className = "", hover = false, theme = 'light' }) => {
+const GlassCard: React.FC<{ children?: React.ReactNode, className?: string, hover?: boolean, theme?: 'light' | 'dark' | 'brand', onClick?: () => void }> = ({ children, className = "", hover = false, theme = 'light', onClick }) => {
     const themeClasses = {
         light: 'bg-white/90 border-white/80 shadow-lg glass-border',
         dark: 'bg-slate-900/98 border-slate-700/50 shadow-2xl text-white glass-border',
@@ -63,13 +63,16 @@ const GlassCard: React.FC<{ children?: React.ReactNode, className?: string, hove
     };
 
     return (
-        <div className={`
+        <div 
+            onClick={onClick}
+            className={`
             backdrop-blur-2xl 
             rounded-3xl md:rounded-[2rem]
             relative overflow-hidden
             ${themeClasses[theme]}
             ${hover ? 'transition-all duration-700 hover:bg-white/95 hover:shadow-2xl hover:-translate-y-2' : ''}
             ${className}
+            ${onClick ? 'cursor-pointer' : ''}
         `}>
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
             {children}
@@ -1143,3 +1146,145 @@ export const ObservationTipsSlide: React.FC<SlideProps> = ({ data }) => {
     </motion.div>
   );
 };
+
+// 12. Investment Slide
+export const InvestmentSlide: React.FC<SlideProps> = ({ data }) => {
+  const { budget, topics } = data.content;
+  const [selections, setSelections] = useState<Record<string, string | null>>({
+    providers: null,
+    support: null,
+    insurance: null
+  });
+
+  const toggleSelection = (topicId: string, optionId: string) => {
+    setSelections(prev => ({
+      ...prev,
+      [topicId]: prev[topicId] === optionId ? null : optionId
+    }));
+  };
+
+  const totalSpent = Object.entries(selections).reduce((acc, [topicId, optionId]) => {
+    if (!optionId) return acc;
+    const topic = topics.find((t: any) => t.id === topicId);
+    const option = topic?.options.find((o: any) => o.id === optionId);
+    return acc + (option?.price || 0);
+  }, 0);
+
+  const remainingBudget = budget - totalSpent;
+  const isOverBudget = remainingBudget < 0;
+
+  return (
+    <motion.div 
+      className="flex flex-col h-full py-2 max-w-7xl mx-auto px-6 overflow-hidden" 
+      initial="hidden" 
+      animate="show" 
+      variants={containerVariants}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full items-stretch">
+        {/* Left Column: Topics and Options */}
+        <div className="lg:col-span-8 flex flex-col gap-3 overflow-y-auto pr-2 custom-scrollbar">
+          {topics.map((topic: any) => (
+            <motion.div key={topic.id} variants={itemVariants} className="space-y-2">
+              <h3 className="text-slate-900 font-black text-xs uppercase tracking-widest border-l-4 border-indigo-600 pl-3">
+                {topic.title}
+              </h3>
+              <div className="grid grid-cols-1 gap-2">
+                {topic.options.map((option: any) => {
+                  const isSelected = selections[topic.id] === option.id;
+                  return (
+                    <GlassCard 
+                      key={option.id}
+                      onClick={() => toggleSelection(topic.id, option.id)}
+                      className={`p-3 cursor-pointer transition-all duration-300 border-2 ${
+                        isSelected 
+                          ? 'bg-indigo-50 border-indigo-500 shadow-indigo-100' 
+                          : 'bg-white border-slate-100 hover:border-indigo-200'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 flex-grow">
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                            isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'border-slate-300'
+                          }`}>
+                            {isSelected && <Check size={12} strokeWidth={4} />}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className={`font-black text-[10px] md:text-xs uppercase tracking-tight ${isSelected ? 'text-indigo-900' : 'text-slate-900'}`}>
+                              {option.name}
+                            </span>
+                            <p className={`text-[9px] md:text-[10px] font-bold leading-tight ${isSelected ? 'text-indigo-600' : 'text-slate-500'}`}>
+                              {option.desc}
+                            </p>
+                          </div>
+                        </div>
+                        <div className={`text-xs md:text-sm font-black whitespace-nowrap ${isSelected ? 'text-indigo-600' : 'text-slate-400'}`}>
+                          ${option.price.toLocaleString()}
+                        </div>
+                      </div>
+                    </GlassCard>
+                  );
+                })}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Right Column: Summary */}
+        <div className="lg:col-span-4 flex flex-col h-full">
+          <motion.div variants={itemVariants} className="h-full">
+            <GlassCard className="h-full p-5 md:p-6 bg-white border-white/80 shadow-2xl rounded-[2rem] relative overflow-hidden flex flex-col">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl -mr-20 -mt-20" />
+              
+              <div className="relative z-10 mb-6">
+                <h3 className="text-slate-900 font-black text-base md:text-lg uppercase tracking-tighter leading-tight mb-1">
+                  Resumen de Inversión
+                </h3>
+                <p className="text-[9px] font-bold text-indigo-600 uppercase tracking-widest opacity-70">
+                  Control de Presupuesto
+                </p>
+              </div>
+
+              <div className="relative z-10 space-y-4 flex-grow">
+                <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-1">Presupuesto Total</span>
+                  <span className="text-xl font-black text-slate-900">${budget.toLocaleString()}</span>
+                </div>
+
+                <div className="p-3 bg-indigo-50 rounded-2xl border border-indigo-100">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400 block mb-1">Total Invertido</span>
+                  <span className={`text-xl font-black ${isOverBudget ? 'text-red-600' : 'text-indigo-600'}`}>
+                    ${totalSpent.toLocaleString()}
+                  </span>
+                </div>
+
+                <div className={`p-3 rounded-2xl border ${isOverBudget ? 'bg-red-50 border-red-100' : 'bg-emerald-50 border-emerald-100'}`}>
+                  <span className={`text-[9px] font-black uppercase tracking-widest block mb-1 ${isOverBudget ? 'text-red-400' : 'text-emerald-400'}`}>
+                    {isOverBudget ? 'Excedente' : 'Disponible'}
+                  </span>
+                  <span className={`text-xl font-black ${isOverBudget ? 'text-red-600' : 'text-emerald-600'}`}>
+                    ${Math.abs(remainingBudget).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-100 relative z-10">
+                {isOverBudget ? (
+                  <div className="flex items-center gap-3 text-red-600 bg-red-50 p-3 rounded-xl border border-red-100">
+                    <AlertCircle size={18} />
+                    <span className="text-[9px] font-black uppercase tracking-tight">Presupuesto excedido</span>
+                  </div>
+                ) : totalSpent === 0 ? (
+                  <div className="flex items-center gap-3 text-slate-400 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <Clock size={18} />
+                    <span className="text-[9px] font-black uppercase tracking-tight">Esperando selección...</span>
+                  </div>
+                ) : null}
+              </div>
+            </GlassCard>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+

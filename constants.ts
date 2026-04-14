@@ -2,7 +2,7 @@ export type IconKey = 'Compass' | 'Target' | 'BrainCircuit' | 'Layers' | 'Zap' |
 
 export interface SlideData {
   id: string;
-  type: 'cover' | 'image' | 'objectives' | 'info' | 'grid' | 'table-capital' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'interactive-dynamic' | 'evaluator-mindset' | 'observation-tips';
+  type: 'cover' | 'image' | 'objectives' | 'info' | 'grid' | 'table-capital' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'interactive-dynamic' | 'evaluator-mindset' | 'observation-tips' | 'investment';
   title?: string;
   subtitle?: string;
   content?: any;
@@ -130,6 +130,43 @@ export const SLIDES: SlideData[] = [
         { id: 1, color: 'bg-indigo-600', frontText: 'Fiebre mundialista', backText: 'Viaje a Estados Unidos para el Mundial. Paquete premium que incluye entradas a 3 partidos, hoteles 5 estrellas y traslados internos.' },
         { id: 2, color: 'bg-emerald-600', frontText: 'Aventura exótica', backText: 'Viaje al Sudeste Asiático (Tailandia, Vietnam, Bali). Paquete enfocado en turismo aventura, espiritualidad y playas paradisíacas por 21 días.' },
         { id: 3, color: 'bg-amber-600', frontText: 'Lujo europeo', backText: 'Un tour súper exclusivo por Europa (París, Alpes Suizos, Roma) diseñado para 50 clientes VIP de altísimo poder adquisitivo (CEOs, celebridades).' }
+      ]
+    }
+  },
+  {
+    id: 'investment-sheet',
+    type: 'investment',
+    title: '💰 FICHA DE INVERSIÓN',
+    subtitle: 'Gestión de presupuesto - Agencia de Viajes',
+    theme: 'light',
+    content: {
+      budget: 200000,
+      topics: [
+        {
+          id: 'providers',
+          title: '1. Nivel de proveedores (Hoteles y Aerolíneas)',
+          options: [
+            { id: 'low-cost', name: 'Opción Low-Cost', price: 40000, desc: 'Sin política de reembolso. Si se cancela, se pierde el 100%.' },
+            { id: 'flexible', name: 'Opción Flexible', price: 90000, desc: 'Reembolso del 50% en caso de fuerza mayor o crisis geopolítica.' },
+            { id: 'vip', name: 'Opción VIP/Blindada', price: 120000, desc: 'Cambios ilimitados y reembolsos totales, pero margen de ganancia muy bajo para la agencia.' }
+          ]
+        },
+        {
+          id: 'support',
+          title: '2. Infraestructura de atención al cliente',
+          options: [
+            { id: 'basic', name: 'Soporte Básico', price: 20000, desc: 'Solo una línea de WhatsApp. Se satura fácilmente ante crisis masivas.' },
+            { id: 'omnichannel', name: 'Soporte Omnicanal', price: 50000, desc: 'Equipo de respuesta rápida y sistema de CRM para gestionar reclamos en tiempo real.' }
+          ]
+        },
+        {
+          id: 'insurance',
+          title: '3. Seguros y contingencias',
+          options: [
+            { id: 'civil', name: 'Seguro de responsabilidad civil', price: 30000, desc: 'Cubre solo accidentes físicos menores. No cubre terrorismo ni fallos financieros.' },
+            { id: 'crisis', name: 'Seguro de "Gran Crisis"', price: 80000, desc: 'Cubre gastos de repatriación y alojamiento de emergencia ante cierres de espacio aéreo.' }
+          ]
+        }
       ]
     }
   },
