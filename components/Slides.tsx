@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 import { SLIDES } from '../constants';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 interface SlideProps {
@@ -1293,7 +1293,7 @@ export const InvestmentSlide: React.FC<SlideProps> = ({ data }) => {
 };
 
 // 13. Candidate Guide Slide
-export const CandidateGuideSlide: React.FC<SlideProps> = () => {
+export const CandidateGuideSlide: React.FC<SlideProps> = ({ data }) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Get data from other slides
@@ -1302,21 +1302,35 @@ export const CandidateGuideSlide: React.FC<SlideProps> = () => {
   const phase2Data = SLIDES.find(s => s.id === 'dinamica-2-crisis')?.content;
 
   const downloadPDF = async () => {
+    console.log('Starting PDF generation...');
     setIsGenerating(true);
     const element = document.getElementById('pdf-content');
-    if (!element) return;
+    if (!element) {
+      console.error('PDF content element not found');
+      setIsGenerating(false);
+      return;
+    }
 
     try {
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pages = element.querySelectorAll('.pdf-page');
+      console.log(`Found ${pages.length} pages to process`);
       
+      if (pages.length === 0) {
+        console.error('No pages found with class .pdf-page');
+        setIsGenerating(false);
+        return;
+      }
+
       for (let i = 0; i < pages.length; i++) {
+        console.log(`Processing page ${i + 1}...`);
         const page = pages[i] as HTMLElement;
         const canvas = await html2canvas(page, {
           scale: 2,
           useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff'
+          logging: true,
+          backgroundColor: '#ffffff',
+          windowWidth: 1200 // Ensure consistent width for rendering
         });
         
         const imgData = canvas.toDataURL('image/png');
@@ -1327,7 +1341,9 @@ export const CandidateGuideSlide: React.FC<SlideProps> = () => {
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
       }
       
+      console.log('Saving PDF...');
       pdf.save('Guia_del_Candidato_fyo.pdf');
+      console.log('PDF saved successfully');
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {
@@ -1417,7 +1433,7 @@ export const CandidateGuideSlide: React.FC<SlideProps> = () => {
       </div>
 
       {/* Hidden PDF Content */}
-      <div className="fixed top-[-10000px] left-[-10000px]">
+      <div className="absolute opacity-0 pointer-events-none" style={{ left: '-9999px', top: '0' }}>
         <div id="pdf-content" className="w-[210mm] bg-white text-slate-900 font-sans">
           {/* Page 1: Phase 1 & Investment */}
           <div className="pdf-page w-[210mm] min-h-[297mm] p-[15mm] flex flex-col relative overflow-hidden bg-white">
