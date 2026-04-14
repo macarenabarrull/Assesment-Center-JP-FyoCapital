@@ -237,11 +237,11 @@ export const SLIDES: SlideData[] = [
         title: '💣 Preguntas disparadoras para líderes',
         subtitle: '(usarlas si el equipo se estanca o para profundizar)',
         questions: [
-          '“¿Cuál es el modelo de ingresos de esta agencia?”',
-          '“Si tuvieran que elegir: ¿experiencia premium o volumen?”',
-          '“¿Qué los hace diferentes de la competencia?”',
-          '“¿Dónde pierden plata en este modelo?”',
-          '“¿Qué decisión tomarían si solo tuvieran 1 semana para lanzar?”'
+          '¿Cuál es el modelo de ingresos de esta agencia?',
+          'Si tuvieran que elegir: ¿experiencia premium o volumen?',
+          '¿Qué los hace diferentes de la competencia?',
+          '¿Dónde pierden plata en este modelo?',
+          '¿Qué decisión tomarían si solo tuvieran 1 semana para lanzar?'
         ]
       }
     }
@@ -304,11 +304,11 @@ export const SLIDES: SlideData[] = [
         title: '💣 Preguntas disparadoras',
         subtitle: '(gestión de crisis)',
         questions: [
-          '“¿Qué priorizan: reputación o rentabilidad?”',
-          '“¿Qué le dicen HOY al cliente?”',
-          '“¿A quién llaman primero internamente?”',
-          '“¿Qué decisiones son reversibles y cuáles no?”',
-          '“¿Cómo evitan que esto escale a algo mayor?”'
+          '¿Qué priorizan: reputación o rentabilidad?',
+          '¿Qué le dicen HOY al cliente?',
+          '¿A quién llaman primero internamente?',
+          '¿Qué decisiones son reversibles y cuáles no?',
+          '¿Cómo evitan que esto escale a algo mayor?'
         ]
       }
     }
