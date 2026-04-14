@@ -138,7 +138,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             <motion.h1 
                 layoutId="slide-title"
                 variants={itemVariants} 
-                className={`text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter ${isAssessment ? 'text-white' : 'text-slate-900'} mb-6 md:mb-8 leading-[0.8] font-display uppercase drop-shadow-2xl`}
+                className={`text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter ${isAssessment ? 'text-white' : 'text-slate-900'} mb-6 md:mb-8 leading-[0.9] font-display uppercase drop-shadow-2xl`}
             >
                 {(data.title || '').split(' ').map((word, i) => {
                     const isSpecial = word.toUpperCase().includes('JP') || word.toUpperCase().includes('FYO') || word.toUpperCase().includes('ASSESSMENT');
@@ -181,7 +181,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
                         }} 
                         key={idx} 
                         whileHover={{ y: -10, scale: 1.1, borderColor: colorHex, color: isAssessment ? '#fff' : colorHex, backgroundColor: isAssessment ? colorHex : '#fff', boxShadow: `0 25px 30px -5px ${colorShadow}` }}
-                        className={`px-8 py-4 ${isAssessment ? 'bg-white/5 text-white border-white/10' : 'bg-white text-slate-900 border-slate-100'} text-[11px] font-black tracking-[0.2em] uppercase rounded-2xl border shadow-xl transition-all cursor-default`}
+                        className={`px-6 py-3 ${isAssessment ? 'bg-white/5 text-white border-white/10' : 'bg-white text-slate-900 border-slate-100'} text-[10px] font-black tracking-[0.2em] uppercase rounded-2xl border shadow-xl transition-all cursor-default`}
                       >
                           {tag}
                       </motion.div>
@@ -291,12 +291,12 @@ export const InfoSlide: React.FC<SlideProps> = ({ data }) => {
                         <Quote size={28} fill="currentColor" />
                     </OrganicShape>
                 </div>
-                <div className="text-xl md:text-2xl font-bold text-slate-800 leading-relaxed mb-8 tracking-tight font-display italic whitespace-pre-line">
+                <div className="text-lg md:text-xl font-bold text-slate-800 leading-relaxed mb-8 tracking-tight font-display italic whitespace-pre-line">
                     "{mainText}"
                 </div>
                 <div className="mt-auto flex items-center gap-6">
                     <div className="h-1.5 w-24 bg-indigo-600 rounded-full" />
-                    <p className="text-sm md:text-base text-indigo-600 font-black leading-relaxed tracking-[0.2em] uppercase">
+                    <p className="text-xs md:text-sm text-indigo-600 font-black leading-relaxed tracking-[0.2em] uppercase">
                         {description}
                     </p>
                 </div>
@@ -311,7 +311,7 @@ export const InfoSlide: React.FC<SlideProps> = ({ data }) => {
                 <Sparkles className="text-indigo-400 mb-8 animate-pulse relative z-10" size={40} />
                 
                 <div className="relative z-10">
-                    <p className="text-2xl md:text-3xl font-black text-white leading-[1.1] tracking-tighter font-display uppercase mb-10">
+                    <p className="text-xl md:text-2xl font-black text-white leading-[1.1] tracking-tighter font-display uppercase mb-10">
                         {highlight}
                     </p>
                     
@@ -348,7 +348,7 @@ export const TutorContentSlide: React.FC<SlideProps> = ({ data }) => {
                             </OrganicShape>
                             <h3 className="text-slate-900 font-black text-[10px] uppercase tracking-[0.4em] font-display">Nuestra Cultura</h3>
                         </div>
-                        <div className="text-lg md:text-xl text-slate-700 font-bold leading-relaxed tracking-tight mb-8 italic border-l-4 border-indigo-100 pl-8 whitespace-pre-line">
+                        <div className="text-base md:text-lg text-slate-700 font-bold leading-relaxed tracking-tight mb-8 italic border-l-4 border-indigo-100 pl-8 whitespace-pre-line">
                             {data.content.description}
                         </div>
                         
@@ -362,7 +362,7 @@ export const TutorContentSlide: React.FC<SlideProps> = ({ data }) => {
                         </div>
                         <div className="relative">
                             <Quote size={40} className="absolute -top-4 -left-2 text-indigo-50 opacity-10" fill="currentColor" />
-                            <p className="text-xl md:text-2xl font-black text-slate-900 leading-[1.1] tracking-tighter font-display uppercase relative z-10">
+                            <p className="text-lg md:text-xl font-black text-slate-900 leading-[1.1] tracking-tighter font-display uppercase relative z-10">
                                 {data.content.vision}
                             </p>
                         </div>
@@ -385,7 +385,7 @@ export const TutorContentSlide: React.FC<SlideProps> = ({ data }) => {
               <motion.div key={i} variants={itemVariants}>
                 <div className="p-5 flex items-center gap-6 bg-white/40 backdrop-blur-xl glass-border rounded-[2rem] shadow-md hover:-translate-x-3 transition-all duration-700 group cursor-default border border-white/60">
                   <GlowIcon icon={Icon} color={bubbleText} bg={bubbleBg} size={24} />
-                  <span className="text-xl md:text-2xl font-black text-slate-900 tracking-tighter group-hover:text-indigo-600 transition-colors uppercase font-display">
+                  <span className="text-lg md:text-xl font-black text-slate-900 tracking-tighter group-hover:text-indigo-600 transition-colors uppercase font-display">
                     {valor.title}
                   </span>
                 </div>
@@ -431,10 +431,10 @@ export const GridSlide: React.FC<SlideProps> = ({ data }) => {
                     {emoji}
                 </motion.span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tighter font-display group-hover:text-indigo-600 transition-colors uppercase leading-[0.85]">
+              <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-4 tracking-tighter font-display group-hover:text-indigo-600 transition-colors uppercase leading-[0.85]">
                 {cleanTitle}
               </h3>
-              <p className="text-sm md:text-base text-slate-500 font-bold leading-relaxed mb-10 flex-grow tracking-tight opacity-80">
+              <p className="text-xs md:text-sm text-slate-500 font-bold leading-relaxed mb-10 flex-grow tracking-tight opacity-80">
                 {item.desc}
               </p>
               
@@ -601,7 +601,7 @@ export const ObjectivesSlide: React.FC<SlideProps> = ({ data }) => {
                     </OrganicShape>
                     <h3 className="text-slate-900 font-black text-[10px] uppercase tracking-[0.4em] font-display">Objetivo Principal</h3>
                 </div>
-                <p className="text-xl md:text-2xl text-slate-700 font-bold leading-relaxed tracking-tight font-display italic">
+                <p className="text-lg md:text-xl text-slate-700 font-bold leading-relaxed tracking-tight font-display italic">
                 {data.content.objective}
                 </p>
             </GlassCard>
@@ -614,7 +614,7 @@ export const ObjectivesSlide: React.FC<SlideProps> = ({ data }) => {
                 <Lightbulb className="text-white" size={18} />
                 Consigna de Trabajo
               </h3>
-              <p className="text-white font-bold leading-relaxed text-lg md:text-xl tracking-tight relative z-10">
+              <p className="text-white font-bold leading-relaxed text-base md:text-lg tracking-tight relative z-10">
                 {data.content.consigna}
               </p>
             </GlassCard>
@@ -701,9 +701,9 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onJumpToSlide }) => {
                     >
                         fyo
                     </motion.div>
-                    <motion.h1 
+            <motion.h1 
                         layoutId="slide-title"
-                        className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 mb-6 leading-[0.9] drop-shadow-sm font-display uppercase"
+                        className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 mb-6 leading-[0.9] drop-shadow-sm font-display uppercase"
                     >
                         {data.title}
                     </motion.h1>
@@ -1031,7 +1031,7 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
                 </div>
                 <h3 className="text-sm font-black text-slate-900 uppercase tracking-[0.3em]">Consigna de trabajo</h3>
               </div>
-              <p className="text-slate-700 text-base md:text-lg leading-relaxed font-bold whitespace-pre-line border-l-4 border-indigo-100 pl-6">
+              <p className="text-slate-700 text-sm md:text-base leading-relaxed font-bold whitespace-pre-line border-l-4 border-indigo-100 pl-6">
                 {consigna}
               </p>
             </GlassCard>
@@ -1067,7 +1067,7 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
                         <Icon size={28} />
                       </div>
                       <div className="flex flex-col min-w-0 pr-6">
-                        <span className="text-slate-900 font-black text-sm md:text-base uppercase tracking-tight leading-tight mb-1">{role.title}</span>
+                        <span className="text-slate-900 font-black text-xs md:text-sm uppercase tracking-tight leading-tight mb-1">{role.title}</span>
                         <AnimatePresence mode="wait">
                           {showInfo ? (
                             <motion.p 
@@ -1116,7 +1116,7 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
               <div className="bg-white text-red-600 p-4 rounded-2xl shadow-xl animate-pulse">
                 <AlertCircle size={40} />
               </div>
-              <h2 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase italic drop-shadow-2xl">{alertText}</h2>
+              <h2 className="text-xl md:text-3xl lg:text-4xl font-black tracking-tighter uppercase italic drop-shadow-2xl">{alertText}</h2>
             </div>
             <div className="flex flex-col items-end gap-2 relative z-10">
               <div className="flex items-center gap-3 bg-black/20 px-6 py-2 rounded-full border border-white/10">

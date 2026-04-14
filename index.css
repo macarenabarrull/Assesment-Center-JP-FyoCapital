@@ -19,13 +19,14 @@
     background-color: #fcfdfe;
     color: var(--brand-slate);
     overflow: hidden;
-    font-size: clamp(13px, 0.3vw + 11px, 16px);
-    line-height: 1.5;
+    /* Conventionally used base size for digital presentations */
+    font-size: clamp(14px, 0.4vw + 12px, 18px);
+    line-height: 1.6;
     letter-spacing: -0.01em;
   }
 
   .tv-mode {
-    font-size: clamp(15px, 0.4vw + 13px, 20px);
+    font-size: clamp(16px, 0.5vw + 14px, 22px);
     --brand-slate: #000000;
   }
 
