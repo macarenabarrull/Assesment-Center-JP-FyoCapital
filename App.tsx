@@ -12,7 +12,6 @@ import {
   ObjectivesSlide,
   ClosingSlide,
   EcosystemCirclesSlide,
-  WordRaffleSlide,
   InteractiveDynamicSlide
 } from './components/Slides';
 
@@ -58,8 +57,6 @@ const App: React.FC = () => {
           return <ObjectivesSlide data={data} />;
         case 'ecosystem-circles':
           return <EcosystemCirclesSlide data={data} />;
-        case 'raffle':
-          return <WordRaffleSlide data={data} />;
         case 'interactive-dynamic':
           return <InteractiveDynamicSlide data={data} />;
         case 'closing':

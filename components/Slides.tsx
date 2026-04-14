@@ -7,7 +7,6 @@ import {
   Mail, RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Printer
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
-import { WordRaffle } from './WordRaffle';
 
 interface SlideProps {
   data: SlideData;
@@ -139,7 +138,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             <motion.h1 
                 layoutId="slide-title"
                 variants={itemVariants} 
-                className={`text-4xl md:text-7xl lg:text-9xl font-black tracking-tighter ${isAssessment ? 'text-white' : 'text-slate-900'} mb-6 md:mb-8 leading-[0.8] font-display uppercase drop-shadow-2xl`}
+                className={`text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter ${isAssessment ? 'text-white' : 'text-slate-900'} mb-6 md:mb-8 leading-[0.8] font-display uppercase drop-shadow-2xl`}
             >
                 {(data.title || '').split(' ').map((word, i) => {
                     const isSpecial = word.toUpperCase().includes('JP') || word.toUpperCase().includes('FYO') || word.toUpperCase().includes('ASSESSMENT');
@@ -155,7 +154,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             
             <motion.p 
                 variants={itemVariants}
-                className={`text-lg md:text-2xl ${isAssessment ? 'text-blue-100/60' : 'text-slate-500'} font-bold tracking-[0.3em] mb-12 max-w-3xl leading-relaxed uppercase opacity-90`}
+                className={`text-base md:text-xl ${isAssessment ? 'text-blue-100/60' : 'text-slate-500'} font-bold tracking-[0.3em] mb-12 max-w-3xl leading-relaxed uppercase opacity-90`}
             >
               {data.subtitle}
             </motion.p>
@@ -964,27 +963,6 @@ const PrintSummary = () => {
     </div>
   );
 };
-
-
-// 10. Word Raffle Slide
-export const WordRaffleSlide: React.FC<SlideProps> = () => {
-  return (
-    <motion.div 
-      className="w-full h-full flex flex-col items-center justify-center py-4 pb-12"
-      initial="hidden" 
-      animate="show" 
-      variants={containerVariants}
-    >
-      <motion.div variants={itemVariants} className="w-full h-full max-w-6xl px-6">
-        <GlassCard className="w-full h-full overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] relative bg-white rounded-[2.5rem] border-4 border-white group">
-          <WordRaffle />
-          {/* Decorative Frame Elements */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-slate-100 rounded-full z-20" />
-        </GlassCard>
-      </motion.div>
-    </motion.div>
-  );
-};// 11. Interactive Dynamic Slide
 const FlipCard = ({ color, frontText, backText, icon: Icon = Zap }: { color: string, frontText: string, backText: string, icon?: any }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -1053,7 +1031,7 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
                 </div>
                 <h3 className="text-sm font-black text-slate-900 uppercase tracking-[0.3em]">Consigna de trabajo</h3>
               </div>
-              <p className="text-slate-700 text-base md:text-lg lg:text-xl leading-relaxed font-bold whitespace-pre-line border-l-4 border-indigo-100 pl-6">
+              <p className="text-slate-700 text-base md:text-lg leading-relaxed font-bold whitespace-pre-line border-l-4 border-indigo-100 pl-6">
                 {consigna}
               </p>
             </GlassCard>
@@ -1138,7 +1116,7 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
               <div className="bg-white text-red-600 p-4 rounded-2xl shadow-xl animate-pulse">
                 <AlertCircle size={40} />
               </div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase italic drop-shadow-2xl">{alertText}</h2>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase italic drop-shadow-2xl">{alertText}</h2>
             </div>
             <div className="flex flex-col items-end gap-2 relative z-10">
               <div className="flex items-center gap-3 bg-black/20 px-6 py-2 rounded-full border border-white/10">
@@ -1155,52 +1133,7 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
             ))}
           </div>
         </div>
-      )}
+     )}
     </motion.div>
   );
 };
-;
-
-// Placeholder for missing types
-export const MentoringSplitSlide: React.FC<SlideProps> = ({ data }) => {
-  const { mentors, title, subtitle } = data.content;
-  
-  return (
-    <motion.div className="flex flex-col justify-center h-full py-4 max-w-6xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <motion.div variants={itemVariants} className="space-y-8">
-            <div className="inline-flex items-center gap-3 px-4 py-2 bg-indigo-50 rounded-full border border-indigo-100">
-                <div className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
-                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">Mentoreo fyo</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase font-display leading-[0.9]">
-                {title || 'Acompañamiento Estratégico'}
-            </h2>
-            <p className="text-xl text-slate-500 font-bold leading-relaxed tracking-tight border-l-4 border-indigo-600 pl-6 italic">
-                {subtitle || 'Potenciamos tu talento con la guía de nuestros líderes.'}
-            </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 gap-4">
-            {mentors?.map((mentor: any, i: number) => (
-                <motion.div key={i} variants={itemVariants}>
-                    <GlassCard className="p-6 flex items-center gap-6 bg-white/80 backdrop-blur-xl border border-white shadow-xl hover:-translate-x-4 transition-all duration-500 group">
-                        <div className="w-16 h-16 rounded-2xl bg-slate-900 flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:bg-indigo-600 transition-colors">
-                            {mentor.name.charAt(0)}
-                        </div>
-                        <div className="flex-grow">
-                            <h4 className="text-xl font-black text-slate-900 tracking-tighter uppercase font-display group-hover:text-indigo-600 transition-colors">{mentor.name}</h4>
-                            <p className="text-xs font-black text-indigo-600 uppercase tracking-[0.2em] opacity-60">{mentor.role}</p>
-                        </div>
-                        <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-all">
-                            <Sparkles size={18} />
-                        </div>
-                    </GlassCard>
-                </motion.div>
-            ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-export const AcademySplitSlide = () => null;

@@ -2,7 +2,7 @@ export type IconKey = 'Compass' | 'Target' | 'BrainCircuit' | 'Layers' | 'Zap' |
 
 export interface SlideData {
   id: string;
-  type: 'cover' | 'image' | 'objectives' | 'info' | 'timeline' | 'grid' | 'table-granos' | 'table-capital' | 'mentoring-split' | 'academy-split' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'raffle' | 'interactive-dynamic';
+  type: 'cover' | 'image' | 'objectives' | 'info' | 'grid' | 'table-capital' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'interactive-dynamic';
   title?: string;
   subtitle?: string;
   content?: any;

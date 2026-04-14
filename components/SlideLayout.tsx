@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import { 
   ChevronRight, ChevronLeft, Maximize, Minimize, Keyboard, X, MousePointer2, 
-  Sparkles, Home, Target, Users, Info, GraduationCap, CheckCircle2, Compass,
+  Sparkles, Home, Target, Users, Info, CheckCircle2, Compass,
   BrainCircuit, Layers, Zap, ClipboardCheck, Heart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -442,7 +442,6 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                     if (slide.type === 'cover') return Home;
                     if (slide.type === 'objectives') return Target;
                     if (slide.type === 'info') return Users;
-                    if (slide.type === 'academy-split') return GraduationCap;
                     if (slide.type === 'closing') return CheckCircle2;
                     if (slide.type === 'tutor-content') {
                       // Use the icon from content if it exists in our imports
