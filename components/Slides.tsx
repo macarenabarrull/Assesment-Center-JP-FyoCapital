@@ -332,8 +332,8 @@ export const InfoSlide: React.FC<SlideProps> = ({ data }) => {
           
           {/* Description Footer */}
           <motion.div variants={itemVariants} className="md:col-span-3">
-            <GlassCard className="p-4 bg-indigo-600 text-white shadow-xl flex items-center gap-4">
-              <div className="h-1 w-12 bg-white/30 rounded-full" />
+            <GlassCard className="p-4 bg-white border-indigo-100 text-indigo-900 shadow-xl flex items-center gap-4">
+              <div className="h-1 w-12 bg-indigo-600 rounded-full" />
               <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em]">
                 {description}
               </p>
@@ -1510,8 +1510,8 @@ export const CandidateGuideSlide: React.FC<SlideProps> = () => {
             </div>
 
             {/* Recommendations */}
-            <div className="mt-auto pt-8 border-t border-slate-100">
-              <div className="flex items-center gap-2 mb-4">
+            <div className="mt-6 pt-6 border-t border-slate-100">
+              <div className="flex items-center gap-2 mb-3">
                 <Sparkles size={14} className="text-indigo-600" />
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-900">Recomendaciones para el equipo</span>
               </div>
@@ -1521,6 +1521,19 @@ export const CandidateGuideSlide: React.FC<SlideProps> = () => {
                     <div className="w-1 h-1 rounded-full bg-indigo-600 mt-1.5 flex-shrink-0" />
                     <p className="text-[9px] font-bold text-slate-500 leading-tight">{tip}</p>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Space for Notes */}
+            <div className="mt-auto pt-8 border-t border-slate-100 border-dashed">
+              <div className="flex items-center gap-2 mb-4">
+                <PencilRuler size={14} className="text-slate-400" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Espacio para anotaciones personales</span>
+              </div>
+              <div className="space-y-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="border-b border-slate-100 h-8" />
                 ))}
               </div>
             </div>
