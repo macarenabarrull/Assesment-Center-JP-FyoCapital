@@ -240,9 +240,9 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
               transition={{ type: 'spring', damping: 60, stiffness: 80 }}
               className="absolute inset-0 pointer-events-none"
             >
-              <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-10' : 'bg-indigo-200 opacity-20'}`}></div>
-              <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.08]' : 'bg-emerald-100 opacity-15'}`}></div>
-              <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-10' : 'bg-slate-200 opacity-20'}`}></div>
+              <div className={`absolute top-[-10%] -left-[10%] w-[500px] h-[500px] rounded-full mix-blend-soft-light filter blur-[120px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-10' : 'bg-indigo-200 opacity-20'}`}></div>
+              <div className={`absolute top-[-5%] -right-[10%] w-[400px] h-[400px] rounded-full mix-blend-soft-light filter blur-[120px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.08]' : 'bg-emerald-100 opacity-15'}`}></div>
+              <div className={`absolute -bottom-[10%] left-[15%] w-[500px] h-[500px] rounded-full mix-blend-soft-light filter blur-[120px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-10' : 'bg-slate-200 opacity-20'}`}></div>
               
               {/* Floating Organic Elements */}
               <motion.div 

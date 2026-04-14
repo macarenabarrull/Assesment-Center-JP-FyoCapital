@@ -732,7 +732,7 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onJumpToSlide }) => {
                 />
             ))}
 
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-[150px] -z-10" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-[100px] -z-10" />
 
             <motion.div variants={itemVariants} className="mb-12 relative z-10">
                 <motion.div 
@@ -984,8 +984,8 @@ export const EvaluatorMindsetSlide: React.FC<SlideProps> = ({ data }) => {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <GlassCard className="h-full p-8 md:p-10 bg-slate-900 text-white shadow-2xl rounded-[2.5rem] relative overflow-hidden border border-slate-800">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl -mr-32 -mt-32" />
+          <GlassCard theme="dark" className="h-full p-8 md:p-10 shadow-2xl rounded-[2.5rem] relative overflow-hidden border border-slate-800">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl -mr-24 -mt-24" />
             <div className="flex items-center gap-4 mb-8 relative z-10">
               <OrganicShape bg="bg-indigo-500" color="text-white" className="w-12 h-12">
                 <BrainCircuit size={24} />
@@ -1091,8 +1091,8 @@ export const ObservationTipsSlide: React.FC<SlideProps> = ({ data }) => {
         {/* Right Column: Trigger Questions */}
         <div className="lg:col-span-4 flex flex-col h-full">
           <motion.div variants={itemVariants} className="h-full">
-            <GlassCard className="h-full p-8 bg-slate-900 text-white shadow-2xl rounded-[3rem] relative overflow-hidden border border-slate-800 flex flex-col">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl -mr-32 -mt-32" />
+            <GlassCard theme="dark" className="h-full p-6 md:p-8 shadow-2xl rounded-[2.5rem] relative overflow-hidden border border-slate-800 flex flex-col">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/15 rounded-full blur-3xl -mr-24 -mt-24" />
               
               <div className="relative z-10 mb-8">
                 <div className="flex items-center gap-4 mb-3">
@@ -1121,9 +1121,9 @@ export const ObservationTipsSlide: React.FC<SlideProps> = ({ data }) => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + idx * 0.1 }}
-                    className="p-5 bg-white/5 rounded-[1.5rem] border border-white/10 hover:bg-white/10 transition-all duration-500 group cursor-default"
+                    className="p-4 bg-white/5 rounded-[1.2rem] border border-white/10 hover:bg-white/10 transition-all duration-500 group cursor-default"
                   >
-                    <p className="text-sm md:text-base font-bold leading-relaxed text-slate-200 group-hover:text-white transition-colors">
+                    <p className="text-sm md:text-base font-bold leading-relaxed text-indigo-50 group-hover:text-white transition-colors">
                       {q}
                     </p>
                   </motion.div>
