@@ -229,7 +229,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
         onTouchEnd={onTouchEnd}
     >
       {/* --- PREMIUM BACKGROUND --- */}
-      <div className={`absolute inset-0 w-full h-full overflow-hidden -z-10 print:hidden ${isDarkMode ? 'bg-slate-950' : 'bg-[#fcfdfe]'}`}>
+      <div className={`absolute inset-0 w-full h-full overflow-hidden -z-10 print:hidden ${isDarkMode ? 'bg-slate-950' : 'bg-slate-50'}`}>
           {/* Noise Texture Overlay */}
           <div className="absolute inset-0 bg-noise z-10"></div>
           
@@ -240,9 +240,9 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
               transition={{ type: 'spring', damping: 60, stiffness: 80 }}
               className="absolute inset-0 pointer-events-none"
             >
-              <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-[0.05]' : 'bg-indigo-100 opacity-10'}`}></div>
-              <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.03]' : 'bg-emerald-50 opacity-8'}`}></div>
-              <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-[0.05]' : 'bg-slate-100 opacity-10'}`}></div>
+              <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-10' : 'bg-indigo-200 opacity-20'}`}></div>
+              <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.08]' : 'bg-emerald-100 opacity-15'}`}></div>
+              <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-10' : 'bg-slate-200 opacity-20'}`}></div>
               
               {/* Floating Organic Elements */}
               <motion.div 
@@ -284,24 +284,29 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </div>
 
       {/* Header - Minimalist & Elegant */}
-      <header className={`flex-none px-4 md:px-12 flex justify-between items-center z-20 print:hidden h-14 md:h-16 transition-all duration-700 ${isReadingMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <header className={`flex-none px-6 md:px-16 lg:px-24 flex justify-between items-center z-20 print:hidden h-16 md:h-20 transition-all duration-700 ${isReadingMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
         <motion.div 
           layoutId="brand-header"
-          className="flex items-center gap-2 md:gap-4 group cursor-pointer"
+          className="flex items-center gap-3 md:gap-5 group cursor-pointer"
           onClick={() => onJumpToSlide(0)}
         >
-          {/* Fyo Logo */}
-          <div className="w-8 h-8 md:w-10 md:h-10 bg-slate-900 rounded-lg md:rounded-xl flex items-center justify-center text-white font-black text-xs md:text-sm shadow-lg group-hover:bg-indigo-600 transition-colors">
+          {/* Fyo Logo with Shimmer */}
+          <div className="relative w-10 h-10 md:w-12 md:h-12 bg-slate-900 rounded-xl md:rounded-2xl flex items-center justify-center text-white font-black text-xs md:text-sm shadow-xl group-hover:bg-indigo-600 transition-colors overflow-hidden">
+            <motion.div 
+              animate={{ x: ['-100%', '200%'] }}
+              transition={{ repeat: Infinity, duration: 3, ease: "linear", delay: 1 }}
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+            />
             fyo
           </div>
-          <div className="h-6 md:h-8 w-px bg-slate-200 mx-0.5 md:mx-1"></div>
+          <div className="h-8 md:h-10 w-px bg-slate-200/60 mx-1"></div>
           <div className="flex flex-col leading-tight">
-             <span className="text-[8px] md:text-[11px] font-black tracking-[0.15em] md:tracking-[0.25em] text-slate-900 uppercase">Jóvenes Profesionales</span>
-             <span className="text-[7px] md:text-[10px] text-slate-400 font-bold tracking-widest uppercase">Assessment Center</span>
+             <span className="text-[9px] md:text-[12px] font-black tracking-[0.2em] md:tracking-[0.3em] text-slate-900 uppercase">Jóvenes Profesionales</span>
+             <span className="text-[8px] md:text-[10px] text-slate-400 font-bold tracking-widest uppercase">Assessment Center</span>
           </div>
         </motion.div>
         
-        <div className="flex items-center gap-1.5 md:gap-4 bg-white/60 backdrop-blur-2xl p-1.5 md:p-2 rounded-full border border-white shadow-xl">
+        <div className="flex items-center gap-2 md:gap-4 bg-white/70 backdrop-blur-3xl p-2 rounded-full border border-white/80 shadow-2xl">
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -382,20 +387,20 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                 className="w-full h-full flex flex-col justify-center overflow-hidden"
             >
                 {title && (
-                    <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20 shrink-0 print:hidden">
+                    <div className="w-full max-w-[1400px] mx-auto px-8 md:px-16 lg:px-24 shrink-0 print:hidden">
                         <motion.div 
-                            initial={{ opacity: 0, y: -10, filter: 'blur(10px)' }}
+                            initial={{ opacity: 0, y: -20, filter: 'blur(15px)' }}
                             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                            transition={{ delay: 0.1, duration: 0.8 }}
-                            className="mb-4 md:mb-8 print:mb-4"
+                            transition={{ delay: 0.1, duration: 1, ease: "easeOut" }}
+                            className="mb-6 md:mb-10 print:mb-4"
                         >
-                            <h1 className={`text-2xl md:text-3xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-[0.9] drop-shadow-sm font-display uppercase ${isProjectorMode ? 'lg:text-7xl' : ''}`}>
+                            <h1 className={`text-3xl md:text-4xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-[0.85] drop-shadow-sm font-display uppercase ${isProjectorMode ? 'lg:text-8xl' : ''}`}>
                             {title}
                             </h1>
                             {subtitle && (
-                                <div className="flex items-center gap-3 mt-3">
-                                    <div className={`h-0.5 bg-indigo-600 rounded-full ${isProjectorMode ? 'w-12 h-1' : 'w-8'}`}></div>
-                                    <p className={`text-slate-500 font-bold tracking-widest uppercase opacity-70 ${isProjectorMode ? 'text-base md:text-lg' : 'text-xs md:text-sm'}`}>
+                                <div className="flex items-center gap-4 mt-4">
+                                    <div className={`h-1 bg-indigo-600 rounded-full ${isProjectorMode ? 'w-16 h-1.5' : 'w-10'}`}></div>
+                                    <p className={`text-slate-500 font-bold tracking-[0.3em] uppercase opacity-70 ${isProjectorMode ? 'text-lg md:text-xl' : 'text-[10px] md:text-xs'}`}>
                                         {subtitle}
                                     </p>
                                 </div>
@@ -403,7 +408,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                         </motion.div>
                     </div>
                 )}
-                <div className="w-full h-full flex flex-col justify-center print:block overflow-y-auto overflow-x-hidden py-4 custom-scrollbar relative">
+                <div className="w-full h-full flex flex-col justify-center print:block overflow-y-auto overflow-x-hidden py-6 custom-scrollbar relative px-8 md:px-16 lg:px-24">
                     {children}
                 </div>
             </motion.div>
@@ -541,19 +546,19 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </AnimatePresence>
 
       {/* Footer / Navigation Controls */}
-      <footer className={`flex-none px-8 py-2 md:px-12 flex justify-between items-center z-20 print:hidden h-14 md:h-16 transition-all duration-500 ${isReadingMode ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <footer className={`flex-none px-8 md:px-20 lg:px-32 py-4 flex justify-between items-center z-20 print:hidden h-16 md:h-24 transition-all duration-500 ${isReadingMode ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
         {/* Pagination Dots - Premium Style */}
-        <div className="flex gap-3">
+        <div className="flex gap-4">
             {Array.from({ length: totalSlides }).map((_, idx) => (
                 <motion.button 
                     key={idx}
-                    whileHover={{ scale: 1.2 }}
+                    whileHover={{ scale: 1.3 }}
                     onClick={() => onJumpToSlide(idx)}
                     className={`rounded-full transition-all duration-700 ease-out
-                        ${isProjectorMode ? 'h-2' : 'h-1'}
+                        ${isProjectorMode ? 'h-2.5' : 'h-1.5'}
                         ${idx === currentSlide 
-                            ? (isProjectorMode ? 'w-14 bg-indigo-600' : 'w-10 bg-indigo-600')
-                            : (isProjectorMode ? 'w-3 bg-slate-200 hover:bg-indigo-200' : 'w-2 bg-slate-200 hover:bg-indigo-200')}`}
+                            ? (isProjectorMode ? 'w-16 bg-indigo-600' : 'w-12 bg-indigo-600')
+                            : (isProjectorMode ? 'w-4 bg-slate-200 hover:bg-indigo-200' : 'w-3 bg-slate-200 hover:bg-indigo-200')}`}
                 />
             ))}
         </div>

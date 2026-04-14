@@ -2,7 +2,7 @@ export type IconKey = 'Compass' | 'Target' | 'BrainCircuit' | 'Layers' | 'Zap' |
 
 export interface SlideData {
   id: string;
-  type: 'cover' | 'image' | 'objectives' | 'info' | 'grid' | 'table-capital' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'interactive-dynamic';
+  type: 'cover' | 'image' | 'objectives' | 'info' | 'grid' | 'table-capital' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'interactive-dynamic' | 'evaluator-mindset' | 'observation-tips';
   title?: string;
   subtitle?: string;
   content?: any;
@@ -113,7 +113,7 @@ export const SLIDES: SlideData[] = [
     theme: 'light',
     content: {
       phase: 1,
-      consigna: '¡Bienvenidos al Directorio!\nAcaban de fundar su propia agencia de viajes. Tienen 30 minutos para definir la identidad de su marca (Nombre y Eslogan) y estructurar la logística del gran viaje de su temporada.',
+      consigna: '¡Bienvenido!\nAcaban de fundar su propia agencia de viajes. Tienen 30 minutos para definir la identidad de su marca (Nombre y Eslogan) y estructurar la logística del gran viaje de su temporada.',
       rolesIntro: 'Para que la agencia funcione, cada miembro del equipo debe asumir obligatoriamente uno de los siguientes roles. Elijan sabiamente quién ocupa cada silla:',
       roles: [
         { name: 'CEO', title: 'Director Comercial', desc: 'Toma la decisión final si hay empate. Es la cara visible de la empresa y quien lidera la presentación.', icon: 'Users' },
@@ -151,31 +151,166 @@ export const SLIDES: SlideData[] = [
   },
   {
     id: 'evaluator-role',
-    type: 'grid',
-    title: 'ROL DEL EVALUADOR 🧐',
-    subtitle: 'Guía para observar y potenciar el talento',
+    type: 'evaluator-mindset',
+    title: '¿QUÉ ESTAMOS EVALUANDO REALMENTE? 🎯',
+    subtitle: 'Mindset del evaluador',
     theme: 'light',
     content: {
-      items: [
-        { 
-          title: 'Preguntas Disparadoras ❓', 
-          desc: '¿Cómo se organizaron? ¿Quién tomó el liderazgo? ¿Cómo manejaron el conflicto? ¿Qué priorizaron ante la crisis?',
-          icon: 'Lightbulb',
-          link: 'Foco en el proceso'
+      evaluating: [
+        'Pensamiento de negocio (rentabilidad vs cliente)',
+        'Capacidad de priorización bajo presión',
+        'Toma de decisiones en incertidumbre',
+        'Influencia y trabajo en equipo',
+        'Comunicación ejecutiva',
+        'Gestión de crisis y resiliencia'
+      ],
+      mindset: {
+        donts: [
+          'No evaluar “al que más habla”',
+          'No enamorarse de ideas creativas sin sustento',
+          'No buscar perfección técnica (son juniors)'
+        ],
+        dos: [
+          'Observar cómo piensan, no qué dicen',
+          'Detectar trade-offs (cliente vs negocio)',
+          'Evaluar comportamientos sostenidos, no momentos aislados'
+        ],
+        goldenRule: '“Si lo contrato, ¿me acompañaría a una reunión con clientes mañana?”'
+      }
+    }
+  },
+  {
+    id: 'observation-phase-1',
+    type: 'observation-tips',
+    title: '🧩 FASE 1: CONSTRUCCIÓN DEL NEGOCIO',
+    subtitle: 'Guía de observación',
+    theme: 'light',
+    content: {
+      sections: [
+        {
+          title: '🧠 Pensamiento de negocio',
+          tips: [
+            'Habla de ingresos, costos o rentabilidad (aunque sea básico)',
+            'Prioriza (ej: “no podemos hacer todo, enfoquémonos en…”)',
+            'Identifica cliente objetivo (no “para todos”)',
+            'Conecta decisiones (marca, producto, precio) con impacto en negocio'
+          ]
         },
-        { 
-          title: 'Aspectos a Considerar 🔍', 
-          desc: 'Trabajo en equipo, Liderazgo, Comunicación efectiva, Orientación a resultados y Tolerancia a la presión.',
-          icon: 'Search',
-          link: 'Competencias clave'
+        {
+          title: '🎯 Orientación a resultados',
+          tips: [
+            'Empuja a cerrar definiciones (evita discusiones infinitas)',
+            'Baja ideas a algo actionable (“ok, entonces hacemos X”)',
+            'Cuida el tiempo (advierte que se están yendo de foco)',
+            'Propone entregables concretos (ej: propuesta clara para presentar)'
+          ]
         },
-        { 
-          title: 'Tips y Consejos 💡', 
-          desc: 'Observar sin intervenir. Tomar nota de comportamientos específicos (evidencias). Evitar sesgos personales.',
-          icon: 'Sparkles',
-          link: 'Mejores prácticas'
+        {
+          title: '🤝 Trabajo en equipo',
+          tips: [
+            'Escucha y retoma ideas de otros (“como dijo X, podríamos…”)',
+            'Construye sobre lo que ya está (no reinventa todo)',
+            'Facilita acuerdos cuando hay diferencias',
+            'Da espacio a otros (no monopoliza)'
+          ]
+        },
+        {
+          title: '🗣️ Influencia',
+          tips: [
+            'Logra que el equipo adopte su idea (no solo la dice)',
+            'Argumenta con lógica (no con volumen o insistencia)',
+            'Reformula para destrabar (“probemos de esta forma…”)',
+            'Lee al grupo y ajusta su approach'
+          ]
+        },
+        {
+          title: '🧩 Organización y estructuración',
+          tips: [
+            'Ordena la discusión (ej: “dividamos en 3 temas…”)',
+            'Propone método (roles, pasos, prioridades)',
+            'Resume avances parciales',
+            'Evita que el equipo se pierda en detalles irrelevantes'
+          ]
         }
-      ]
+      ],
+      triggerQuestions: {
+        title: '💣 Preguntas disparadoras para líderes',
+        subtitle: '(usarlas si el equipo se estanca o para profundizar)',
+        questions: [
+          '“¿Cuál es el modelo de ingresos de esta agencia?”',
+          '“Si tuvieran que elegir: ¿experiencia premium o volumen?”',
+          '“¿Qué los hace diferentes de la competencia?”',
+          '“¿Dónde pierden plata en este modelo?”',
+          '“¿Qué decisión tomarían si solo tuvieran 1 semana para lanzar?”'
+        ]
+      }
+    }
+  },
+  {
+    id: 'observation-phase-2',
+    type: 'observation-tips',
+    title: '🔥 FASE 2: GESTIÓN DE CRISIS',
+    subtitle: 'Guía de observación',
+    theme: 'light',
+    content: {
+      sections: [
+        {
+          title: '⚡ Toma de decisiones',
+          tips: [
+            'Define un curso de acción claro (aunque no sea perfecto)',
+            'No espera toda la info para avanzar',
+            'Plantea opciones y elige una',
+            'Se hace cargo de la decisión (no la patea al grupo)'
+          ]
+        },
+        {
+          title: '🧘 Manejo de presión',
+          tips: [
+            'Mantiene claridad al hablar (no se desordena)',
+            'No entra en pánico ante el problema',
+            'Sostiene foco en solución, no en el problema',
+            'Ayuda a bajar la ansiedad del equipo'
+          ]
+        },
+        {
+          title: '👤 Orientación al cliente',
+          tips: [
+            'Propone qué decirle al cliente (no solo qué hacer internamente)',
+            'Tiene en cuenta impacto reputacional',
+            'Busca soluciones concretas (alternativas, compensaciones)',
+            'Muestra empatía (no minimiza el problema)'
+          ]
+        },
+        {
+          title: '⚖️ Negociación (cliente vs negocio)',
+          tips: [
+            'Intenta balancear pérdida económica vs satisfacción del cliente',
+            'No regala todo ni se pone rígido',
+            'Propone escenarios intermedios',
+            'Piensa en el impacto a largo plazo'
+          ]
+        },
+        {
+          title: '🔄 Adaptabilidad',
+          tips: [
+            'Cambia rápido de enfoque cuando el contexto cambia',
+            'Abandona ideas iniciales sin aferrarse',
+            'Integra nueva información sin bloquearse',
+            'Reformula estrategia en caliente'
+          ]
+        }
+      ],
+      triggerQuestions: {
+        title: '💣 Preguntas disparadoras',
+        subtitle: '(gestión de crisis)',
+        questions: [
+          '“¿Qué priorizan: reputación o rentabilidad?”',
+          '“¿Qué le dicen HOY al cliente?”',
+          '“¿A quién llaman primero internamente?”',
+          '“¿Qué decisiones son reversibles y cuáles no?”',
+          '“¿Cómo evitan que esto escale a algo mayor?”'
+        ]
+      }
     }
   },
   {
