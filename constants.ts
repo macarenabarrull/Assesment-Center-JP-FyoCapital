@@ -77,9 +77,9 @@ export const SLIDES: SlideData[] = [
       description: 'Nuestra cultura se basa en la confianza, la colaboracion y la innovación constante.',
       vision: 'Ser la empresa líder en potenciar los negocios de nuestros clientes.',
       valores: [
-        { title: 'Somos un equipo', icon: 'Users' },
-        { title: 'Pensamos en grande', icon: 'Rocket' },
-        { title: 'Creamos oportunidades', icon: 'Zap' }
+        { title: 'Somos un equipo', icon: 'Users', color: 'bg-blue-600' },
+        { title: 'Pensamos en grande', icon: 'Rocket', color: 'bg-blue-500' },
+        { title: 'Creamos oportunidades', icon: 'Zap', color: 'bg-blue-400' }
       ]
     }
   },
@@ -96,11 +96,14 @@ export const SLIDES: SlideData[] = [
   },
   {
     id: 'dinamica-1',
-    type: 'raffle',
+    type: 'cover',
     title: 'DINÁMICA 1: DIME QUIÉN ERES... 🎨',
     subtitle: 'Assessment Center fyo',
     theme: 'light',
-    content: {}
+    content: {
+      highlight: 'Presentación',
+      tags: ['Conocernos 🤝', 'Romper el hielo 🧊']
+    }
   },
   {
     id: 'dinamica-2',
@@ -143,6 +146,35 @@ export const SLIDES: SlideData[] = [
         { id: 1, color: 'bg-red-600', frontText: 'Fiebre mundialista', backText: 'Tensión geopolítica extrema. Irán insinúa un posible atentado en las sedes del Mundial. Las aerolíneas están cancelando vuelos por precaución, el pánico es generalizado y los clientes están saturando las líneas exigiendo garantías de seguridad.' },
         { id: 2, color: 'bg-red-700', frontText: 'Aventura exótica', backText: 'Estalla un conflicto bélico relámpago en una región vecina que cierra el espacio aéreo de dos de los tres países del paquete. El 80% de los clientes exige la baja inmediata y el reembolso total, pero sus proveedores locales (hoteles y guías) no aceptan devoluciones.' },
         { id: 3, color: 'bg-red-800', frontText: 'Lujo europeo', backText: 'Un apagón informático global masivo paraliza el sistema financiero y de radares europeos. Sus 50 clientes VIP están varados en el Aeropuerto de Ezeiza; no hay vuelos, las tarjetas de crédito corporativas de la agencia no pasan para emitir reservas de emergencia y los clientes están furiosos amenazando con demandas millonarias.' }
+      ]
+    }
+  },
+  {
+    id: 'evaluator-role',
+    type: 'grid',
+    title: 'ROL DEL EVALUADOR 🧐',
+    subtitle: 'Guía para observar y potenciar el talento',
+    theme: 'light',
+    content: {
+      items: [
+        { 
+          title: 'Preguntas Disparadoras ❓', 
+          desc: '¿Cómo se organizaron? ¿Quién tomó el liderazgo? ¿Cómo manejaron el conflicto? ¿Qué priorizaron ante la crisis?',
+          icon: 'Lightbulb',
+          link: 'Foco en el proceso'
+        },
+        { 
+          title: 'Aspectos a Considerar 🔍', 
+          desc: 'Trabajo en equipo, Liderazgo, Comunicación efectiva, Orientación a resultados y Tolerancia a la presión.',
+          icon: 'Search',
+          link: 'Competencias clave'
+        },
+        { 
+          title: 'Tips y Consejos 💡', 
+          desc: 'Observar sin intervenir. Tomar nota de comportamientos específicos (evidencias). Evitar sesgos personales.',
+          icon: 'Sparkles',
+          link: 'Mejores prácticas'
+        }
       ]
     }
   },

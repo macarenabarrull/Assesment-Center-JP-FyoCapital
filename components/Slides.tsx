@@ -88,13 +88,13 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
         initial="hidden" animate="show" variants={containerVariants}
     >
       {/* Animated Gradient Background */}
-      <div className={`absolute inset-0 -z-20 bg-gradient-to-br ${isAssessment ? 'from-rose-50 via-white to-orange-50' : isBreak ? 'from-amber-50 via-white to-orange-50' : 'from-indigo-50 via-white to-cyan-50'} animate-gradient-xy`} />
+      <div className={`absolute inset-0 -z-20 bg-gradient-to-br ${isAssessment ? 'from-indigo-900 via-slate-900 to-blue-900' : isBreak ? 'from-amber-50 via-white to-orange-50' : 'from-indigo-50 via-white to-cyan-50'} animate-gradient-xy`} />
       
       <motion.div variants={itemVariants} className="mb-4 relative w-full max-w-4xl px-6">
         {/* Universe Effect Background */}
         <div className="absolute inset-0 -z-10">
-            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] ${isAssessment ? 'bg-rose-500/10' : isBreak ? 'bg-amber-500/10' : 'bg-indigo-500/10'} rounded-full blur-[120px] animate-pulse`} />
-            {[...Array(8)].map((_, i) => (
+            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] ${isAssessment ? 'bg-blue-500/20' : isBreak ? 'bg-amber-500/10' : 'bg-indigo-500/10'} rounded-full blur-[120px] animate-pulse`} />
+            {[...Array(12)].map((_, i) => (
                 <motion.div
                     key={i}
                     animate={{ 
@@ -103,45 +103,48 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
                         opacity: [0.3, 0.6, 0.3]
                     }}
                     transition={{ 
-                        rotate: { repeat: Infinity, duration: 25 + i * 12, ease: "linear" },
-                        scale: { repeat: Infinity, duration: 6 + i, ease: "easeInOut" },
-                        opacity: { repeat: Infinity, duration: 4 + i, ease: "easeInOut" }
+                        rotate: { repeat: Infinity, duration: 20 + i * 10, ease: "linear" },
+                        scale: { repeat: Infinity, duration: 5 + i, ease: "easeInOut" },
+                        opacity: { repeat: Infinity, duration: 3 + i, ease: "easeInOut" }
                     }}
                     className="absolute inset-0 pointer-events-none"
                 >
                     <div 
-                        className={`w-1.5 h-1.5 ${isAssessment ? 'bg-rose-400/40' : isBreak ? 'bg-amber-400/40' : 'bg-indigo-400/40'} rounded-full absolute`}
+                        className={`w-1.5 h-1.5 ${isAssessment ? 'bg-blue-400/60' : isBreak ? 'bg-amber-400/40' : 'bg-indigo-400/40'} rounded-full absolute`}
                         style={{ 
-                            top: `${15 + i * 12}%`, 
-                            left: `${5 + i * 18}%`,
-                            boxShadow: `0 0 12px ${isAssessment ? '#e11d48' : isBreak ? '#d97706' : '#4f46e5'}`
+                            top: `${10 + i * 15}%`, 
+                            left: `${5 + i * 15}%`,
+                            boxShadow: `0 0 15px ${isAssessment ? '#60a5fa' : isBreak ? '#d97706' : '#4f46e5'}`
                         }}
                     />
                 </motion.div>
             ))}
         </div>
 
-        <GlassCard theme={data.theme} className="p-6 md:p-16 flex flex-col items-center border-white/20 shadow-lg relative overflow-visible bg-white/30 backdrop-blur-2xl">
-            <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-20 md:w-40 h-1 bg-gradient-to-r from-transparent via-${isAssessment ? 'rose' : isBreak ? 'amber' : 'indigo'}-500 to-transparent rounded-b-full`} />
+        <GlassCard theme={isAssessment ? 'dark' : data.theme} className={`p-8 md:p-20 flex flex-col items-center border-white/20 shadow-2xl relative overflow-visible ${isAssessment ? 'bg-slate-900/40 border-blue-500/30' : 'bg-white/30'} backdrop-blur-2xl rounded-[3rem]`}>
+            {isAssessment && (
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-600 rounded-full blur-3xl opacity-50 animate-pulse" />
+            )}
+            <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-20 md:w-40 h-1.5 bg-gradient-to-r from-transparent via-${isAssessment ? 'blue' : isBreak ? 'amber' : 'indigo'}-500 to-transparent rounded-b-full`} />
             
             <motion.div 
                 layoutId="brand-tag"
                 variants={itemVariants} 
-                className="inline-flex items-center gap-2 md:gap-3 px-3 md:px-5 py-1.5 md:py-2 rounded-full border border-slate-100/50 bg-white/80 shadow-md text-slate-400 text-[7px] md:text-[9px] font-black tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 md:mb-8"
+                className={`inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 md:py-3 rounded-full border ${isAssessment ? 'border-blue-500/30 bg-blue-500/10 text-blue-400' : 'border-slate-100/50 bg-white/80 text-slate-400'} shadow-md text-[8px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-6 md:mb-10`}
             >
-                <div className={`h-1.5 w-1.5 md:h-2 md:w-2 rounded-full ${isAssessment ? 'bg-rose-500' : isBreak ? 'bg-amber-500' : 'bg-indigo-500'} animate-pulse`} />
-                {isAssessment ? 'Evaluación' : isBreak ? 'Descanso' : 'fyo'}
+                <div className={`h-2 w-2 md:h-2.5 md:w-2.5 rounded-full ${isAssessment ? 'bg-blue-500 shadow-[0_0_10px_#3b82f6]' : isBreak ? 'bg-amber-500' : 'bg-indigo-500'} animate-pulse`} />
+                {isAssessment ? 'Assessment Center' : isBreak ? 'Descanso' : 'fyo'}
             </motion.div>
             
             <motion.h1 
                 layoutId="slide-title"
                 variants={itemVariants} 
-                className="text-3xl md:text-6xl lg:text-8xl font-black tracking-tighter text-slate-900 mb-4 md:mb-6 leading-[0.85] font-display uppercase drop-shadow-sm"
+                className={`text-4xl md:text-7xl lg:text-9xl font-black tracking-tighter ${isAssessment ? 'text-white' : 'text-slate-900'} mb-6 md:mb-8 leading-[0.8] font-display uppercase drop-shadow-2xl`}
             >
                 {(data.title || '').split(' ').map((word, i) => {
                     const isSpecial = word.toUpperCase().includes('JP') || word.toUpperCase().includes('FYO') || word.toUpperCase().includes('ASSESSMENT');
                     const hasEmoji = /\p{Emoji}/u.test(word);
-                    const colorClass = isAssessment ? 'text-rose-600' : isBreak ? 'text-amber-600' : 'text-indigo-600';
+                    const colorClass = isAssessment ? 'text-blue-400' : isBreak ? 'text-amber-600' : 'text-indigo-600';
                     return (
                         <span key={i} className={i % 2 === 1 && !isSpecial && !hasEmoji ? `italic ${colorClass} font-serif lowercase` : ''}>
                             {word}{' '}
@@ -152,7 +155,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             
             <motion.p 
                 variants={itemVariants}
-                className="text-base md:text-xl text-slate-500 font-bold tracking-widest mb-10 max-w-2xl leading-relaxed uppercase opacity-80"
+                className={`text-lg md:text-2xl ${isAssessment ? 'text-blue-100/60' : 'text-slate-500'} font-bold tracking-[0.3em] mb-12 max-w-3xl leading-relaxed uppercase opacity-90`}
             >
               {data.subtitle}
             </motion.p>
@@ -166,11 +169,11 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
                     }
                   }
                 }}
-                className="flex flex-wrap justify-center gap-3"
+                className="flex flex-wrap justify-center gap-4"
               >
                   {data.content.tags.map((tag: string, idx: number) => {
-                    const colorHex = isAssessment ? '#e11d48' : isBreak ? '#d97706' : '#4f46e5';
-                    const colorShadow = isAssessment ? 'rgb(225 29 72 / 0.1)' : isBreak ? 'rgb(217 119 6 / 0.1)' : 'rgb(79 70 229 / 0.1)';
+                    const colorHex = isAssessment ? '#3b82f6' : isBreak ? '#d97706' : '#4f46e5';
+                    const colorShadow = isAssessment ? 'rgb(59 130 246 / 0.2)' : isBreak ? 'rgb(217 119 6 / 0.1)' : 'rgb(79 70 229 / 0.1)';
                     return (
                       <motion.div 
                         variants={{
@@ -178,8 +181,8 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
                           show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200 } }
                         }} 
                         key={idx} 
-                        whileHover={{ y: -8, scale: 1.05, borderColor: colorHex, color: colorHex, boxShadow: `0 20px 25px -5px ${colorShadow}` }}
-                        className="px-6 py-3 bg-white text-slate-900 text-[10px] font-black tracking-[0.2em] uppercase rounded-2xl border border-slate-100 shadow-lg transition-all cursor-default"
+                        whileHover={{ y: -10, scale: 1.1, borderColor: colorHex, color: isAssessment ? '#fff' : colorHex, backgroundColor: isAssessment ? colorHex : '#fff', boxShadow: `0 25px 30px -5px ${colorShadow}` }}
+                        className={`px-8 py-4 ${isAssessment ? 'bg-white/5 text-white border-white/10' : 'bg-white text-slate-900 border-slate-100'} text-[11px] font-black tracking-[0.2em] uppercase rounded-2xl border shadow-xl transition-all cursor-default`}
                       >
                           {tag}
                       </motion.div>
@@ -377,11 +380,13 @@ export const TutorContentSlide: React.FC<SlideProps> = ({ data }) => {
           </motion.div>
           {data.content.valores.map((valor: any, i: number) => {
             const Icon = IconMap[valor.icon] || Sparkles;
+            const bubbleBg = valor.color || 'bg-indigo-50';
+            const bubbleText = valor.color ? 'text-white' : 'text-indigo-600';
             return (
               <motion.div key={i} variants={itemVariants}>
-                <div className="p-4 flex items-center gap-5 bg-white/40 backdrop-blur-xl glass-border rounded-[1.5rem] shadow-sm hover:-translate-x-2 transition-all duration-700 group cursor-default border border-white/60">
-                  <GlowIcon icon={Icon} color="text-indigo-600" bg="bg-indigo-50" size={20} />
-                  <span className="text-lg font-black text-slate-900 tracking-tighter group-hover:text-indigo-600 transition-colors uppercase font-display">
+                <div className="p-5 flex items-center gap-6 bg-white/40 backdrop-blur-xl glass-border rounded-[2rem] shadow-md hover:-translate-x-3 transition-all duration-700 group cursor-default border border-white/60">
+                  <GlowIcon icon={Icon} color={bubbleText} bg={bubbleBg} size={24} />
+                  <span className="text-xl md:text-2xl font-black text-slate-900 tracking-tighter group-hover:text-indigo-600 transition-colors uppercase font-display">
                     {valor.title}
                   </span>
                 </div>
@@ -1031,39 +1036,39 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
 
   return (
     <motion.div 
-      className="w-full h-full flex flex-col items-center justify-center px-4 py-6 overflow-hidden"
+      className="w-full h-full flex flex-col items-center justify-center px-6 py-10 overflow-hidden"
       initial="hidden" 
       animate="show" 
       variants={containerVariants}
     >
       {phase === 1 ? (
-        <div className="w-full max-w-6xl flex flex-col items-center gap-6">
+        <div className="w-full max-w-7xl flex flex-col items-center gap-10">
           {/* Top Section: Consigna, Roles and Tips in a compact grid */}
-          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Consigna */}
-            <GlassCard className="lg:col-span-5 p-5 bg-white/80 border-white/60 shadow-sm rounded-3xl flex flex-col justify-center">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-indigo-50 rounded-xl text-indigo-600">
-                    <ClipboardCheck size={18} />
+            <GlassCard className="lg:col-span-5 p-8 bg-white/90 border-white/60 shadow-xl rounded-[3rem] flex flex-col justify-center">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-indigo-50 rounded-2xl text-indigo-600 shadow-sm">
+                    <ClipboardCheck size={24} />
                 </div>
-                <h3 className="text-[11px] font-black text-slate-900 uppercase tracking-[0.2em]">Consigna de trabajo</h3>
+                <h3 className="text-sm font-black text-slate-900 uppercase tracking-[0.3em]">Consigna de trabajo</h3>
               </div>
-              <p className="text-slate-600 text-[11px] md:text-[12px] leading-relaxed font-bold whitespace-pre-line">
+              <p className="text-slate-700 text-base md:text-lg lg:text-xl leading-relaxed font-bold whitespace-pre-line border-l-4 border-indigo-100 pl-6">
                 {consigna}
               </p>
             </GlassCard>
 
             {/* Roles */}
-            <div className="lg:col-span-7 bg-white/40 backdrop-blur-xl rounded-3xl p-5 border border-white/60 shadow-sm">
-              <p className="text-slate-400 text-[8px] font-black uppercase tracking-[0.4em] mb-4 text-center">{rolesIntro}</p>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="lg:col-span-7 bg-white/60 backdrop-blur-2xl rounded-[3rem] p-8 border border-white/80 shadow-xl">
+              <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] mb-8 text-center">{rolesIntro}</p>
+              <div className="grid grid-cols-2 gap-6">
                 {roles?.map((role: any, idx: number) => {
                   const Icon = IconMap[role.icon] || Users;
                   const roleColors = [
-                    'bg-indigo-50 text-indigo-600 border-indigo-100',
-                    'bg-emerald-50 text-emerald-600 border-emerald-100',
-                    'bg-amber-50 text-amber-600 border-amber-100',
-                    'bg-rose-50 text-rose-600 border-rose-100'
+                    'bg-indigo-600 text-white border-indigo-400',
+                    'bg-emerald-600 text-white border-emerald-400',
+                    'bg-amber-600 text-white border-amber-400',
+                    'bg-rose-600 text-white border-rose-400'
                   ];
                   const colorClass = roleColors[idx % roleColors.length];
                   const [showInfo, setShowInfo] = useState(false);
@@ -1071,27 +1076,27 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
                   return (
                     <div 
                       key={role.title} 
-                      className="flex items-center gap-3 p-3 bg-white/60 rounded-2xl border border-white/80 hover:border-indigo-200 transition-all group/role shadow-sm relative overflow-hidden"
+                      className="flex items-center gap-4 p-5 bg-white/80 rounded-[2rem] border border-white/100 hover:border-indigo-300 transition-all group/role shadow-md relative overflow-hidden"
                     >
                       <button 
                         onClick={() => setShowInfo(!showInfo)}
-                        className="absolute top-2 right-2 w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-indigo-600 hover:text-white transition-all z-20"
+                        className="absolute top-3 right-3 w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-indigo-600 hover:text-white transition-all z-20 shadow-sm"
                       >
-                        <span className="text-xs font-black leading-none">{showInfo ? '−' : '+'}</span>
+                        <span className="text-sm font-black leading-none">{showInfo ? '−' : '+'}</span>
                       </button>
 
-                      <div className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center ${colorClass.split(' ')[0]} ${colorClass.split(' ')[1]} group-hover/role:scale-110 transition-transform`}>
-                        <Icon size={20} />
+                      <div className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center ${colorClass.split(' ')[0]} ${colorClass.split(' ')[1]} group-hover/role:scale-110 transition-transform shadow-lg`}>
+                        <Icon size={28} />
                       </div>
-                      <div className="flex flex-col min-w-0 pr-4">
-                        <span className="text-slate-900 font-black text-[11px] md:text-[12px] uppercase tracking-tight leading-tight mb-0.5">{role.title}</span>
+                      <div className="flex flex-col min-w-0 pr-6">
+                        <span className="text-slate-900 font-black text-sm md:text-base uppercase tracking-tight leading-tight mb-1">{role.title}</span>
                         <AnimatePresence mode="wait">
                           {showInfo ? (
                             <motion.p 
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: 'auto' }}
                               exit={{ opacity: 0, height: 0 }}
-                              className="text-slate-500 text-[9px] leading-tight font-bold"
+                              className="text-slate-600 text-[10px] md:text-xs leading-snug font-bold"
                             >
                               {role.desc}
                             </motion.p>
@@ -1100,9 +1105,9 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
-                              className="text-slate-400 text-[9px] font-bold uppercase tracking-widest opacity-60"
+                              className="text-slate-400 text-[9px] font-bold uppercase tracking-widest opacity-80"
                             >
-                              Click en + para info
+                              Ver detalles
                             </motion.p>
                           )}
                         </AnimatePresence>
@@ -1115,36 +1120,36 @@ export const InteractiveDynamicSlide: React.FC<SlideProps> = ({ data }) => {
           </div>
 
           {/* Cards Row (Products) - Moved to bottom */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-5xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full max-w-6xl">
             {cards.map((card: any) => (
               <FlipCard key={card.id} {...card} icon={Briefcase} />
             ))}
           </div>
         </div>
       ) : (
-        <div className="w-full max-w-6xl flex flex-col items-center gap-6">
+        <div className="w-full max-w-7xl flex flex-col items-center gap-10">
           {/* News Header - Top */}
           <motion.div 
             variants={itemVariants}
-            className="w-full bg-red-600 text-white py-4 px-8 rounded-3xl flex items-center justify-between shadow-lg border-b-4 border-red-800 overflow-hidden relative gap-4"
+            className="w-full bg-red-600 text-white py-8 px-12 rounded-[3rem] flex items-center justify-between shadow-2xl border-b-8 border-red-800 overflow-hidden relative gap-8"
           >
             <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.1)_50%,transparent_75%)] bg-[length:250%_250%] animate-shimmer" />
-            <div className="flex items-center gap-4 relative z-10">
-              <div className="bg-white text-red-600 p-2 rounded-xl shadow-md animate-pulse">
-                <AlertCircle size={24} />
+            <div className="flex items-center gap-8 relative z-10">
+              <div className="bg-white text-red-600 p-4 rounded-2xl shadow-xl animate-pulse">
+                <AlertCircle size={40} />
               </div>
-              <h2 className="text-xl md:text-3xl font-black tracking-tighter uppercase italic drop-shadow-lg">{alertText}</h2>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase italic drop-shadow-2xl">{alertText}</h2>
             </div>
-            <div className="flex flex-col items-end gap-0 relative z-10">
-              <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full">
-                <Newspaper size={14} />
-                <span className="text-[10px] font-black tracking-[0.2em] uppercase">Flash Informativo</span>
+            <div className="flex flex-col items-end gap-2 relative z-10">
+              <div className="flex items-center gap-3 bg-black/20 px-6 py-2 rounded-full border border-white/10">
+                <Newspaper size={20} />
+                <span className="text-xs font-black tracking-[0.3em] uppercase">Flash Informativo</span>
               </div>
             </div>
           </motion.div>
 
           {/* News Cards Row - Bottom */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-5xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full max-w-6xl">
             {cards.map((card: any) => (
               <FlipCard key={card.id} {...card} icon={AlertCircle} />
             ))}
