@@ -1293,7 +1293,7 @@ export const InvestmentSlide: React.FC<SlideProps> = ({ data }) => {
 };
 
 // 13. Candidate Guide Slide
-export const CandidateGuideSlide: React.FC<SlideProps> = ({ data }) => {
+export const CandidateGuideSlide: React.FC<SlideProps> = () => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Get data from other slides
@@ -1304,41 +1304,55 @@ export const CandidateGuideSlide: React.FC<SlideProps> = ({ data }) => {
   const downloadPDF = async () => {
     console.log('Starting PDF generation...');
     setIsGenerating(true);
-    const element = document.getElementById('pdf-content');
-    if (!element) {
-      console.error('PDF content element not found');
-      setIsGenerating(false);
-      return;
-    }
-
+    
     try {
-      const pdf = new jsPDF('p', 'mm', 'a4');
+      const element = document.getElementById('pdf-content');
+      if (!element) {
+        throw new Error('PDF content element not found');
+      }
+
+      // Ensure all images are loaded
+      const images = element.getElementsByTagName('img');
+      await Promise.all(Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      }));
+
+      const pdf = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4',
+        compress: true
+      });
+
       const pages = element.querySelectorAll('.pdf-page');
       console.log(`Found ${pages.length} pages to process`);
       
-      if (pages.length === 0) {
-        console.error('No pages found with class .pdf-page');
-        setIsGenerating(false);
-        return;
-      }
-
       for (let i = 0; i < pages.length; i++) {
         console.log(`Processing page ${i + 1}...`);
         const page = pages[i] as HTMLElement;
+        
         const canvas = await html2canvas(page, {
           scale: 2,
           useCORS: true,
-          logging: true,
+          allowTaint: true,
           backgroundColor: '#ffffff',
-          windowWidth: 1200 // Ensure consistent width for rendering
+          logging: false,
+          width: page.offsetWidth,
+          height: page.offsetHeight,
+          windowWidth: page.offsetWidth,
+          windowHeight: page.offsetHeight
         });
         
-        const imgData = canvas.toDataURL('image/png');
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const imgWidth = 210;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
       }
       
       console.log('Saving PDF...');
@@ -1346,6 +1360,10 @@ export const CandidateGuideSlide: React.FC<SlideProps> = ({ data }) => {
       console.log('PDF saved successfully');
     } catch (error) {
       console.error('Error generating PDF:', error);
+      // Fallback: try to at least show what happened
+      if (error instanceof Error) {
+        alert('Error al generar PDF: ' + error.message);
+      }
     } finally {
       setIsGenerating(false);
     }
@@ -1433,7 +1451,17 @@ export const CandidateGuideSlide: React.FC<SlideProps> = ({ data }) => {
       </div>
 
       {/* Hidden PDF Content */}
-      <div className="absolute opacity-0 pointer-events-none" style={{ left: '-9999px', top: '0' }}>
+      <div 
+        style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: '-10000px', 
+          width: '210mm', 
+          zIndex: -9999,
+          pointerEvents: 'none',
+          background: 'white'
+        }}
+      >
         <div id="pdf-content" className="w-[210mm] bg-white text-slate-900 font-sans">
           {/* Page 1: Phase 1 & Investment */}
           <div className="pdf-page w-[210mm] min-h-[297mm] p-[15mm] flex flex-col relative overflow-hidden bg-white">
